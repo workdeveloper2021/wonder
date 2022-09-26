@@ -344,13 +344,22 @@
                                               <div class="shopping-cart" style="width: 100%;margin: 0;">
                                                 <!--end shopping-cart-header -->
                                                 <ul class="shopping-cart-items">
-                                                    <?php if(isset($sess)){ ?>
+                                                    @auth
                                                          <p><a href="{{ URL::to('dashboard') }}"><i class="fas fa-home"></i> Dashboard</a></p>
-                                                         <p><a href="{{ URL::to('logout')}}"><i class="fas fa-sign-out-alt"></i> Logout</a></p>
+                                                         <p> <a class="dropdown-item text-danger" href="{{ route('logout') }}"
+                                                               onclick="event.preventDefault();
+                                                                             document.getElementById('logout-form').submit();">
+                                                               <i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Logout</span>
+                                                            </a>
 
-                                                    <?php }else{ ?>
+                                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                                @csrf
+                                                            </form>
+                                                          
+                                                    @endauth
+                                                    @guest
                                                         <p><a href="{{ URL::to('login') }}"><i class="fas fa-sign-in-alt"></i> Login</a></p>
-                                                    <?php } ?>    
+                                                    @endauth 
                                                    
                                                   
                                                 </ul>
