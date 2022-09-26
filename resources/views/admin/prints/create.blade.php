@@ -42,7 +42,7 @@
                                 </ul>
                             </div>
                         @endif
-                           {!! Form::model($post, ['route' => ['walldecal.update', $post->id], 'method'=>'PATCH','enctype' => 'multipart/form-data']) !!}
+                         {!! Form::open(array('route' => 'walldecal.store', 'method'=>'POST','enctype' => 'multipart/form-data')) !!}
                         <div class="row">
                            <div class="col-md-6">
                                 <div class="mb-3">
@@ -74,7 +74,7 @@
                                 <div class="mb-3">
                                     <div class="form-group">
                                         <strong>Image:</strong>
-                                        {!! Form::file('image', array('placeholder' => 'image','id' => 'image','class' => 'form-control','accept' =>'image/*')) !!}
+                                        {!! Form::file('image', array('placeholder' => 'image','id' => 'image','class' => 'form-control','accept' =>'image/*','required' =>'required')) !!}
                                     </div>
                                 </div>
                             </div>  
@@ -88,30 +88,22 @@
                                 </div>
                             </div>  
 
-                            <div class="col-md-4">
+                             <div class="col-md-4">
+
                                 <div class="mb-3">
                                     <div class="form-group">
                                         <strong>Video:</strong>
-                                        {!! Form::file('video', array('placeholder' => 'image','id' => 'image','class' => 'form-control','accept' =>'image/*')) !!}
+                                        {!! Form::file('video', array('placeholder' => 'image','id' => 'image','class' => 'form-control','accept' =>'image/*','required' =>'required')) !!}
                                     </div>
                                 </div>
                             </div>    
-                            @if($images)
-                            @foreach($images as $value)
-                            
-                            <div class="col-md-2">
-                            
-                            <img src="{{URL::to('/')}}/{{$value['image']}}" style="width: 50%; height: 50%;">
-                            <a href="{{URL::to('/')}}/delete-image/{{$value['id']}}">Delete</a>
-                            </div> 
-                            @endforeach
-                            @endif   
+                               
                             <div class="col-md-12 m-0">
                                 <div class="mb-3">
                                     <div class="form-group">
 
                                         <label  class="form-label"> Video Description</label>
-                                        {!! Form::textarea('v_description', null, array('placeholder' => 'Video Description','class' => 'form-control','id'=> 'description','required' =>'required','value'=>'')) !!}
+                                        {!! Form::textarea('v_description', null, array('placeholder' => 'Video Description','class' => 'form-control','id'=> 'description''value'=>'')) !!}
                                     </div>
                                     
                                 </div>
@@ -136,20 +128,6 @@
                                             </td>
                                             <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Add Subject</button></td>
                                         </tr>
-                                        <?php 
-                                        if(!empty($post['ftitle'])){
-                                            $ftitle = explode(',', $post['ftitle']);
-                                            $fdescription = explode(',', $post['fdescription']);
-                                            foreach ($ftitle as $key => $value) {
-                                        ?>
-                                        <tr>
-                                            <td><input type="text" name="ftitle[0]" placeholder="Enter subject" class="form-control" value="{{ $ftitle[$key] }}" />
-                                            </td>
-                                            <td><textarea type="text" name="fdescription[0]" placeholder="Enter subject" class="form-control" >{{ $fdescription[$key] }}</textarea>
-                                            </td>
-                                            <td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td>
-                                        </tr>
-                                        <?php } } ?>
                                     </table>
                                     </div>
                                 </div>

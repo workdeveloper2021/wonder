@@ -42,7 +42,7 @@
                                 </ul>
                             </div>
                         @endif
-                           {!! Form::model($post, ['route' => ['walldecal.update', $post->id], 'method'=>'PATCH','enctype' => 'multipart/form-data']) !!}
+                           {!! Form::model($post, ['route' => ['vector.update', $post->id], 'method'=>'PATCH','enctype' => 'multipart/form-data']) !!}
                         <div class="row">
                            <div class="col-md-6">
                                 <div class="mb-3">

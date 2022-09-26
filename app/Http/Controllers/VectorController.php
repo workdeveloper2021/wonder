@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Auth;
 use FORM;
 use URL;
-class WalldecalController extends Controller
+class VectorController extends Controller
 {
     
     function __construct()
@@ -22,11 +22,11 @@ class WalldecalController extends Controller
    
     public function index(Request $request)
     {
-        return view('admin.walldecal.index');
+        return view('admin.vector.index');
     }
 
-    public function walldecalList() {
-        $industry = Product::where('type','walldecal')->get();
+    public function vectorList() {
+        $industry = Product::where('type','vector')->get();
         return datatables()->of($industry)
             ->editColumn('created_at', '{{ date("d-m-Y", strtotime($created_at)) }}')
              ->editColumn('image', function($row) {
@@ -37,7 +37,7 @@ class WalldecalController extends Controller
             ->addColumn('action', function($row) {
                 $btn = '';
                 $btn .= '<div class="btn-group">';
-                $btn .= ' <a class="btn btn-primary" href="' . route('walldecal.edit', [$row->id]) . '">Edit</a>';
+                $btn .= ' <a class="btn btn-primary" href="' . route('vector.edit', [$row->id]) . '">Edit</a>';
                 return $btn;
             })
             ->rawColumns([
@@ -51,7 +51,7 @@ class WalldecalController extends Controller
     
     public function create()
     {   
-        return view('admin.walldecal.create');
+        return view('admin.vector.create');
     }
 
     public function store(Request $request)
@@ -85,8 +85,7 @@ class WalldecalController extends Controller
         if(isset($input['fdescription'])){
         $input['fdescription'] = implode(',', $input['fdescription']);
         }
-
-        $input['type'] ='walldecal';
+        $input['type'] ='vector';
         $result = Product::create($input);
         if($request->file('other_img'))
          {
@@ -95,11 +94,11 @@ class WalldecalController extends Controller
                 $extension =  $file->getClientOriginalExtension();
                 $name = date('YmdHi'). '_'. rand('0000','9999').'.'.$extension;
                 $file->move(public_path('image/'), $name);  
-                Otherimage::create(array('type'=>'walldecal','product_id'=>$result->id,'image' => 'image/'.$name));
+                Otherimage::create(array('type'=>'vector','product_id'=>$result->id,'image' => 'image/'.$name));
             }
          }
-        return redirect()->route('walldecal.index')
-            ->with('success','Walldecal created successfully.');
+        return redirect()->route('vector.index')
+            ->with('success','Vector Walldecals created successfully.');
     }
 
    
@@ -107,7 +106,7 @@ class WalldecalController extends Controller
     {
         $post = Product::find($id);
 
-        return view('admin.walldecal.show', compact('post'));
+        return view('admin.vector.show', compact('post'));
     }
 
     public function edit($id)
@@ -115,7 +114,7 @@ class WalldecalController extends Controller
         $post = Product::find($id);
         $images = Otherimage::where(array('product_id'=>$post->id,'type'=>'walldecal'))->get();
        
-        return view('admin.walldecal.edit',compact('post','images'));
+        return view('admin.vector.edit',compact('post','images'));
     }
 
     public function update(Request $request, $id)
@@ -167,13 +166,13 @@ class WalldecalController extends Controller
          }
     
         return redirect()->route('walldecal.index')
-            ->with('success', 'Walldecal updated successfully.');
+            ->with('success', 'Vector Walldecals updated successfully.');
     }
 
     public function destroy($id)
     {
         Product::where('id',$id)->delete();
         return redirect()->route('walldecal.index')
-            ->with('success', 'Walldecal deleted successfully.');
+            ->with('success', 'Vector Walldecals deleted successfully.');
     }
 }

@@ -26,13 +26,13 @@ class WalldecalController extends Controller
     }
 
     public function walldecalList() {
-        $industry = Product::where('type','walldecal')->get();
+        $industry = Product::get();
         return datatables()->of($industry)
             ->editColumn('created_at', '{{ date("d-m-Y", strtotime($created_at)) }}')
              ->editColumn('image', function($row) {
                 return '<img src="'.URL::to('/').'/'.$row->image.'" style="width: 50px; height:50px;">'; })
             ->editColumn('status', function($row) {
-                            return $row->status == 1 ? '<span style="color:green">Active</span>' : '<span style="color:red">In-Active</span>';
+                            return $row->status == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">In-Active</span>';
                         })
             ->addColumn('action', function($row) {
                 $btn = '';
@@ -85,8 +85,6 @@ class WalldecalController extends Controller
         if(isset($input['fdescription'])){
         $input['fdescription'] = implode(',', $input['fdescription']);
         }
-
-        $input['type'] ='walldecal';
         $result = Product::create($input);
         if($request->file('other_img'))
          {

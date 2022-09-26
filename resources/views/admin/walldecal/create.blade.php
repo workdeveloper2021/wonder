@@ -10,6 +10,7 @@
 
     }
 </style>
+<script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
 <link rel="stylesheet" href="{{ URL::to('/admin') }}/assets/bootstrap-tagsinput.css">
  <div class="page-content">
     <div class="container-fluid">
@@ -47,7 +48,7 @@
                                 <div class="mb-3">
                                     <div class="form-group m-0">
                                         <label  class="form-label">Title</label>
-                                        {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control','required' =>'required')) !!}
+                                        {!! Form::text('title', null, array('placeholder' => 'Name','class' => 'form-control','required' =>'required')) !!}
                                     </div>
                                 </div>
                             </div>   
@@ -57,14 +58,14 @@
                                     <div class="form-group m-0">
 
                                         <label  class="form-label">Price</label>
-                                        {!! Form::text('name', null, array('placeholder' => 'Price','class' => 'form-control','required' =>'required')) !!}
+                                        {!! Form::text('price', null, array('placeholder' => 'Price','class' => 'form-control','required' =>'required')) !!}
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12 m-0">
                                 <div class="mb-3">
                                      <label  class="form-label">Size</label>
-                                     {!! Form::text('size', null, array('placeholder' => 'for more add press Tab','id'=>'size','class' => 'form-control','required' =>'required','data-role'=>"tagsinput")) !!}
+                                     {!! Form::text('size[]', null, array('placeholder' => 'for more add press Tab','id'=>'size','class' => 'form-control','required' =>'required','data-role'=>"tagsinput")) !!}
                                 </div>
                             </div>
 
@@ -101,8 +102,8 @@
                                 <div class="mb-3">
                                     <div class="form-group">
 
-                                        <label  class="form-label"> Description</label>
-                                        {!! Form::textarea('description', null, array('placeholder' => 'Description','class' => 'form-control','required' =>'required','value'=>'')) !!}
+                                        <label  class="form-label"> Video Description</label>
+                                        {!! Form::textarea('v_description', null, array('placeholder' => 'Video Description','class' => 'form-control','id'=> 'description','value'=>'')) !!}
                                     </div>
                                     
                                 </div>
@@ -178,5 +179,8 @@ $("#size").tagsinput('items');
     $(document).on('click', '.remove-input-field', function () {
         $(this).parents('tr').remove();
     });
+</script>
+ <script>
+        CKEDITOR.replace( 'description' );
 </script>
 @endsection

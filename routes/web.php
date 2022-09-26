@@ -5,6 +5,7 @@ use App\Http\Controllers\WebController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WalldecalController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\VectorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,7 +44,8 @@ Route::get('/contact', [WebController::class, 'contact'])->name('contact');
 
 Route::group(['prefix' => '/admin','middleware' => 'auth'],function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-
     Route::resource('walldecal', WalldecalController::class);
-    Route::get('walldecal-List/', [WalldecalController::class, 'shopList'])->name('walldecal-list');
+    Route::get('walldecal-List/', [WalldecalController::class, 'walldecalList'])->name('walldecal-list');
+    Route::resource('vector', VectorController::class);
+    Route::get('vector-List/', [VectorController::class, 'vectorList'])->name('vector-list');
 });

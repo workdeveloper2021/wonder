@@ -10,10 +10,16 @@
             </a>
         </li>
 
-         <li>
+        <li>
             <a href="{{ URL::to('admin/walldecal') }}" class="waves-effect">
                 <i class="bx bx-detail"></i>
-                <span key="t-chat">WALL DECALS</span>
+                <span key="t-chat">Wall Decals</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ URL::to('admin/vector') }}" class="waves-effect">
+                <i class="bx bx-detail"></i>
+                <span key="t-chat">Vector Walldecals</span>
             </a>
         </li>
         
