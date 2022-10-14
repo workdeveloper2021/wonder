@@ -7,7 +7,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                    <h4 class="mb-sm-0 font-size-18">Wall Decals</h4>
+                                    <h4 class="mb-sm-0 font-size-18">Wallpaper</h4>
 
 
                                 </div>
@@ -19,15 +19,14 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-        
-                                        <h4 class="card-title">Wall Decals</h4>
+                                        <h4 class="card-title">Wallpaper</h4>
                                         <p class="card-title-desc"> @if (\Session::has('success'))
                                             <div class="alert alert-success">
                                                 <p>{{ \Session::get('success') }}</p>
                                             </div>
                                         @endif
                                         <span class="float-right">
-                                            <a class="btn btn-primary" href="{{ route('walldecal.create') }}">Create</a>
+                                            <a class="btn btn-primary" href="{{ route('wallpaper.create') }}">Create</a>
                                         </span>
                                         </p>
         
@@ -99,7 +98,7 @@
             responsive: true,
             serverSide: true,
             ajax: {
-                "url": "{{ route('walldecal-list') }}",
+                "url": "{{ route('wallpaper-list') }}",
                 "type": "get",
             },
             columns: [

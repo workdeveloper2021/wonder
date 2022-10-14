@@ -30,27 +30,9 @@
 
                 <div class="img">
 
-                    <div class="font_type" style="min-height: 100%;background-color: #e3f4f9;">
-
-                        <div class="font_name font_name1">Font name : <span>Concert One</span></div>
-
-                        <div class="font_style font_style1">Wonderworld</div>
-
-                        <div class="font_name font_name2">Font name : <span>Jessica</span></div>
-
-                        <div class="font_style font_style2">Jessica</div>
-
-                        <div class="font_name font_name3">Font name : <span>Jack</span></div>
-
-                        <div class="font_style font_style3">Jack</div>
-
-                        <div class="font_name font_name4">Font name : <span>Sophia</span></div>
-
-                        <div class="font_style font_style4">Sophia</div>
-
-                        <div class="font_name font_name5">Font name : <span>Happy Birthday</span></div>
-
-                        <div class="font_style font_style5">Happy Birthday</div>
+                    <div class="font_type" id='font_type' style="min-height: 100%;background-color: #e3f4f9;padding: 35px 0px;">
+                        <?= $product->image ?> 
+                       
 
                     </div>
 
@@ -66,15 +48,17 @@
 
             <div class="col-md-6">
 
+ <form action="{{ route('cart.store') }}" method="post">
+                        @csrf
                 <div class="content">
 
-                    <h1>CUSTOM NAMES</h1>
+                    <h1>{{ $product->title }}</h1>
 
                     <div class="row" style="padding: 30px 0;">
                             <div class="col-6">
 
                                 <p class="label">Price</p>
-                                <h3>$10.00 AUD</h3>
+                                <h3>$<span id="priceshow">{{ $product->price }}</span></h3>
 
                             </div>
                             <div class="col-6">
@@ -107,21 +91,14 @@
 
                             <div class="col-md-8">
 
-                                <select name="" id="">
-
-                                    <option value="">Bodoni Moda</option>
-
-                                    <option value="">Poppins</option>
-
-                                    <option value="">Open Sans</option>
-
-                                    <option value="">Montserrat</option>
-
-                                    <option value="">Andada Pro</option>
-
-                                    <option value="">Scheherazade New</option>
-
-                                    <option value="">Palanqu    in</option>
+                                <select name="font" id="font_style" required>
+                                 <option value="">Select Font</option>
+                                 @if(!empty($font)){
+                                 @foreach($font as $key => $ft) 
+                                    <option value="{{$ft->name}}">{{$ft->name}}</option>
+                                
+                                 @endforeach
+                                  @endif
 
                                 </select>
 
@@ -140,9 +117,8 @@
                             </div>
 
                             <div class="col-md-8">
-
-                                <input type="text" name="" id="">
-
+                                <textarea type="text" maxlength="{{ $product->minmum_character }}" name="printing_text" id="printing_text" required></textarea>
+                                
                             </div>
 
                         </div>
@@ -151,16 +127,9 @@
                     <div class="row " style="margin: 50px 0  30px -3%;">
                         <div class="col-4">
                             <p class="selected">Selected Color</p>
-                            <input style="border: none;" type="color" value="#f2ae56">
+                            <input style="border: none;" type="color" name="color[]" id="text-color" value="#fff">
                         </div>
-                        <div class="col-4">
-                            <p class="selected">Selected Color</p>
-                            <input style="border: none;" type="color" value="#e3f4f9">
-                        </div>
-                            <div class="col-4" >
-                            <p class="selected">Selected Color</p>
-                            <input style="border: none;" type="color" value="#708289">
-                        </div>
+                   
                     </div>
 
                     <div class="row pt-3" style="padding: 30px 0;">
@@ -174,7 +143,7 @@
 
                                 <i class="fa fa-minus decreaseQty"></i>
 
-                                <input style="padding: 7.5px 5px;" type="text" class="qtyValue" value="1" />
+                                <input style="padding: 7.5px 5px;" type="text" name="qty" class="qtyValue" value="1" />
 
                                 <i class="fa fa-plus increaseQty"></i>
 
@@ -184,24 +153,27 @@
 
                     </div>
 
-                    <div class="row buttons">
+                   <div class="row buttons">
 
-                        <div class="col-6">
+                            <div class="col-6">
 
-                            <a href="#"> <button>ADD TO CART</button> </a>
+                               <input type="hidden" name="product_id" value="{{$product->id}}">
+                                <button name="submit" value="cart" type="submit">ADD TO CART</button>
+
+
+                            </div>
+
+                            <div class="col-6">
+
+                                <button name="submit" value="checkout" type="submit">BUY IT NOW</button> 
+
+                            </div>
 
                         </div>
-
-                        <div class="col-6">
-
-                            <a href="#"> <button>BUY IT NOW</button> </a>
-
-                        </div>
-
-                    </div>
 
                 </div>
 
+              </form>
             </div>
 
         </div>
@@ -226,7 +198,7 @@
 
                 <div class="col-12">
 
-                    <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Layer 79.png" alt="">
+                    <img class="img-fluid" src="{{ URL::to('/') }}/{{ $product->banner}}" alt="">
 
                 </div>
 
@@ -249,16 +221,26 @@
                 <div class="col-12">
 
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <?php
+                    $ftitle = explode('|',$product->ftitle);
+                    $fdescription = explode('|',$product->fdescription);
+                     if(!empty($ftitle)){
+                        foreach($ftitle as $key => $ft){
 
+                    ?>
+                    <?php   if($key == 0){ ?>
                         <div class="panel panel-default">
+                              
+                                   
+                                
+                                
+                            <div class="panel-heading " role="tab" id="headingOne">
 
-                            <div class="panel-heading" role="tab" id="headingOne">
-
-                                <h4 class="panel-title">
+                                <h4 class="panel-title {{ ($key == 0)?'active':''}}">
 
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="font-family: 'Mulish', sans-serif;color: #4e6b7d;">
 
-                                        PLEASE ALLOW 10 BUSINESS DAYS TO SHIP
+                                       {{$ftitle[$key] }}
 
                                     </a>
 
@@ -270,28 +252,14 @@
 
                             <div id="collapseOne" class="panel-collapse collapse in show" role="tabpanel" aria-labelledby="headingOne">
 
-                                <div class="panel-body" style="font-family: 'Palanquin', sans-serif;">Transform even the darkest space into a bright and cheerful garden room with these oversized peony and rose decals. A graceful design, the blooms are taken from watercolour paintings of pale pink and creamy white peonies
-
-                                    and roses. With a bit of contrast from the leaves that frame each of the blooms, these easy-to-use decals are sure to delight. Available in full or half sets of five or ten flowers they will give the space a hand-painted,
-
-                                    mural-like look with a great deal of elegance and charm. If you cannot have a garden, this decal set is the next best thing.
-
-                                    <br>
-
-                                    <br> The decals can be purchased in sets. Full and half set, see detailed image. Full set includes 10 watercolour flowers approx. 55cm long and 9 leaves each 30cm long Half set includes 5 watercolour flowers approx.
-
-                                    55cm long and 7 leaves each 30cm long
-
-
-
-
+                                <div class="panel-body" style="font-family: 'Palanquin', sans-serif;">{{$fdescription[$key] }}
 
                                 </div>
 
                             </div>
 
                         </div>
-
+                    <?php }else{ ?>
                         <div class="panel panel-default">
 
                             <div class="panel-heading" role="tab" id="headingTwo">
@@ -300,7 +268,7 @@
 
                                     <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="font-family: 'Mulish', sans-serif;color: #4e6b7d;">
 
-                                        ARE THE DECALS EASY TO INSTALL?
+                                       {{$ftitle[$key] }}
 
                                     </a>
 
@@ -312,47 +280,17 @@
 
                             <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 
-                                <div class="panel-body" style="font-family: 'Palanquin', sans-serif;">Transform even the darkest space into a bright and cheerful garden room with these oversized peony and rose decals. A graceful design, the blooms are taken from watercolour paintings of pale pink and creamy white peonies
-
-                                    and roses. With a bit of contrast from the leaves that frame each of the blooms, these easy-to-use decals are sure to delight. Available in full or half sets of five or ten flowers they will give the space a hand-painted,
-
-                                    mural-like look with a great deal of elegance and charm. If you cannot have a garden, this decal set is the next best thing.
-
+                                <div class="panel-body" style="font-family: 'Palanquin', sans-serif;">{{$fdescription[$key] }}
                                 </div>
 
                             </div>
 
                         </div>
 
-                        <div class="panel panel-default">
+                    <?php } ?>    
+                    <?php } } ?>
 
-                            <div class="panel-heading" role="tab" id="headingThree">
-
-                                <h4 class="panel-title">
-
-                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="font-family: 'Mulish', sans-serif;color: #4e6b7d;">
-
-                                        SHIPPING
-
-                                    </a>
-
-                                </h4>
-
-                            </div>
-
-                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-
-                                <div class="panel-body" style="font-family: 'Palanquin', sans-serif; ">Transform even the darkest space into a bright and cheerful garden room with these oversized peony and rose decals. A graceful design, the blooms are taken from watercolour paintings of pale pink and creamy white peonies
-
-                                    and roses. With a bit of contrast from the leaves that frame each of the blooms, these easy-to-use decals are sure to delight. Available in full or half sets of five or ten flowers they will give the space a hand-painted,
-
-                                    mural-like look with a great deal of elegance and charm. If you cannot have a garden, this decal set is the next best thing.
-
-                                </div>
-
-                            </div>
-
-                        </div>
+                      
 
                     </div>
 
@@ -649,6 +587,44 @@
         });
 
     </script>
+<script type="text/javascript">
+    function calprice(){
+        var font = $('#font_style').val();
+        var text = $('#printing_text').val();
+        var pro_id = "{{$product->id}}";
+         $.ajax({
+            url: "{{ route('fetch-font-price') }}",
+            type:'get',
+            data:{font:font,text:text,pro_id:pro_id},
+            success:function(res){
+                $('#priceshow').html(res);
+            }
+         })
+    }
+    $(document).on('change','#font_style',function(){
+         var font = $(this).val();
+        calprice();
+        
+        $('#font_type').css("font-family", font);
+       
+    })
+    $(document).on('keyup','#printing_text',function(){
+         var text = $(this).val();
+         calprice();
+        $('#font_type').html(text);
+       
+    })
+    $(document).on('change','#text-color',function(){
+         var text = $(this).val();
+        $('#font_type').css("color", text);
+       
+    })
 
+$(document).on('change','#text-color',function(){
+         var text = $(this).val();
+        $('#font_type').css("color", text);
+       
+    })
+</script>
 
 @endsection

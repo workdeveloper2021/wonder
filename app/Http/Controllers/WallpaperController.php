@@ -8,36 +8,27 @@ use Illuminate\Http\Request;
 use Auth;
 use FORM;
 use URL;
-class WalldecalController extends Controller
+class WallpaperController extends Controller
 {
-    
-    function __construct()
-    {
-         // $this->middleware('permission:category-list|categorys-create|categorys-edit|categorys-delete', ['only' => ['index', 'show']]);
-         // $this->middleware('permission:categorys-create', ['only' => ['create', 'store']]);
-         // $this->middleware('permission:categorys-edit', ['only' => ['edit', 'update']]);
-         // $this->middleware('permission:categorys-delete', ['only' => ['destroy']]);
-    }
-
-   
+  
     public function index(Request $request)
     {
-        return view('admin.walldecal.index');
+        return view('admin.wallpaper.index');
     }
 
-    public function walldecalList() {
-        $industry = Product::get();
+    public function wallpaperList() {
+        $industry = Product::where('type','wallpaper')->where('status',1)->get();
         return datatables()->of($industry)
             ->editColumn('created_at', '{{ date("d-m-Y", strtotime($created_at)) }}')
-             ->editColumn('image', function($row) {
+            ->editColumn('image', function($row) {
                 return '<img src="'.URL::to('/').'/'.$row->image.'" style="width: 50px; height:50px;">'; })
             ->editColumn('status', function($row) {
-                            return $row->status == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">In-Active</span>';
+                            return $row->status == 1 ? '<span style="color:green">Active</span>' : '<span style="color:red">In-Active</span>';
                         })
             ->addColumn('action', function($row) {
                 $btn = '';
                 $btn .= '<div class="btn-group">';
-                $btn .= ' <a class="btn btn-primary" href="' . route('walldecal.edit', [$row->id]) . '">Edit</a>';
+                $btn .= ' <a class="btn btn-primary" href="' . route('wallpaper.edit', [$row->id]) . '">Edit</a>';
                 return $btn;
             })
             ->rawColumns([
@@ -51,7 +42,7 @@ class WalldecalController extends Controller
     
     public function create()
     {   
-        return view('admin.walldecal.create');
+        return view('admin.wallpaper.create');
     }
 
     public function store(Request $request)
@@ -68,6 +59,13 @@ class WalldecalController extends Controller
             $file->move(public_path('image/'), $filename);
             $input['image']= 'image/'.$filename;
         }
+        if($request->file('banner')){
+            $file= $request->file('banner');
+            $extension = $request->file('banner')->getClientOriginalExtension();
+            $filename = date('YmdHi'). '_'. rand('0000','9999').'.'.$extension;
+            $file->move(public_path('image/'), $filename);
+            $input['banner']= 'image/'.$filename;
+        }
          if($request->file('video')){
             $file= $request->file('video');
             $extension = $request->file('video')->getClientOriginalExtension();
@@ -80,11 +78,13 @@ class WalldecalController extends Controller
         $input['size'] = implode(',', $input['size']);
         }
         if(isset($input['ftitle'])){
-        $input['ftitle'] = implode(',', $input['ftitle']);
+        $input['ftitle'] = implode('|', array_filter($input['ftitle']));
         }
         if(isset($input['fdescription'])){
-        $input['fdescription'] = implode(',', $input['fdescription']);
+        $input['fdescription'] = implode('|', array_filter($input['fdescription']));
         }
+
+        $input['type'] = 'wallpaper';
         $result = Product::create($input);
         if($request->file('other_img'))
          {
@@ -93,11 +93,11 @@ class WalldecalController extends Controller
                 $extension =  $file->getClientOriginalExtension();
                 $name = date('YmdHi'). '_'. rand('0000','9999').'.'.$extension;
                 $file->move(public_path('image/'), $name);  
-                Otherimage::create(array('type'=>'walldecal','product_id'=>$result->id,'image' => 'image/'.$name));
+                Otherimage::create(array('type'=> $input['type'],'product_id'=>$result->id,'image' => 'image/'.$name));
             }
          }
         return redirect()->route('walldecal.index')
-            ->with('success','Walldecal created successfully.');
+            ->with('success','Wallpaper created successfully.');
     }
 
    
@@ -105,15 +105,15 @@ class WalldecalController extends Controller
     {
         $post = Product::find($id);
 
-        return view('admin.walldecal.show', compact('post'));
+        return view('admin.wallpaper.show', compact('post'));
     }
 
     public function edit($id)
     {
         $post = Product::find($id);
-        $images = Otherimage::where(array('product_id'=>$post->id,'type'=>'walldecal'))->get();
+        $images = Otherimage::where(array('product_id'=>$post->id,'type'=>'wallpaper'))->get();
        
-        return view('admin.walldecal.edit',compact('post','images'));
+        return view('admin.wallpaper.edit',compact('post','images'));
     }
 
     public function update(Request $request, $id)
@@ -130,6 +130,14 @@ class WalldecalController extends Controller
             $file->move(public_path('image/'), $filename);
             $input['image']= 'image/'.$filename;
         }
+
+        if($request->file('banner')){
+            $file= $request->file('banner');
+            $extension = $request->file('banner')->getClientOriginalExtension();
+            $filename = date('YmdHi'). '_'. rand('0000','9999').'.'.$extension;
+            $file->move(public_path('image/'), $filename);
+            $input['banner']= 'image/'.$filename;
+        }
          if($request->file('video')){
             $file= $request->file('video');
             $extension = $request->file('video')->getClientOriginalExtension();
@@ -141,13 +149,12 @@ class WalldecalController extends Controller
         if(isset($input['size'])){
         $input['size'] = implode(',', $input['size']);
         }
-        if(isset($input['ftitle'])){
-        $input['ftitle'] = implode(',', $input['ftitle']);
+         if(isset($input['ftitle'])){
+        $input['ftitle'] = implode('|', array_filter($input['ftitle']));
         }
         if(isset($input['fdescription'])){
-        $input['fdescription'] = implode(',', $input['fdescription']);
+        $input['fdescription'] = implode('|', array_filter($input['fdescription']));
         }
-
 
 
         $post = Product::find($id);
@@ -164,14 +171,14 @@ class WalldecalController extends Controller
             }
          }
     
-        return redirect()->route('walldecal.index')
-            ->with('success', 'Walldecal updated successfully.');
+        return redirect()->route('wallpaper.index')
+            ->with('success', 'Wallpaper updated successfully.');
     }
 
     public function destroy($id)
     {
         Product::where('id',$id)->delete();
-        return redirect()->route('walldecal.index')
-            ->with('success', 'Walldecal deleted successfully.');
+        return redirect()->route('wallpaper.index')
+            ->with('success', 'Wallpaper deleted successfully.');
     }
 }

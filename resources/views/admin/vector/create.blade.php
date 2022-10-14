@@ -68,7 +68,13 @@
                                      {!! Form::text('size[]', null, array('placeholder' => 'for more add press Tab','id'=>'size','class' => 'form-control','required' =>'required','data-role'=>"tagsinput")) !!}
                                 </div>
                             </div>
-
+                           
+ <div class="col-md-12 m-0">
+                                <div class="mb-3">
+                                     <label  class="form-label">Color</label>
+                                     {!! Form::text('color[]', null, array('placeholder' => 'for more add press Tab','id'=>'color','class' => 'form-control','required' =>'required','data-role'=>"tagsinput")) !!}
+                                </div>
+                            </div>
                             <div class="col-md-4">
 
                                 <div class="mb-3">
@@ -78,12 +84,12 @@
                                     </div>
                                 </div>
                             </div>  
-                             <div class="col-md-4">
+                            <div class="col-md-4">
 
                                 <div class="mb-3">
                                     <div class="form-group">
-                                        <strong>Other Image:</strong>
-                                        {!! Form::file('other_img[]', array('placeholder' => 'image','id' => 'image','multiple' =>'multiple','accept' =>'image/*','class' => 'form-control')) !!}
+                                        <strong>Banner Image:</strong>
+                                        {!! Form::file('banner', array('placeholder' => 'banner image','id' => 'image','class' => 'form-control','accept' =>'image/*')) !!}
                                     </div>
                                 </div>
                             </div>  
@@ -122,9 +128,9 @@
                                             <th>Action</th>
                                         </tr>
                                         <tr>
-                                            <td><input type="text" name="ftitle[0]" placeholder="Enter subject" class="form-control" />
+                                            <td><input type="text" name="ftitle[]" placeholder="Enter subject" class="form-control" />
                                             </td>
-                                            <td><textarea type="text" name="fdescription[0]" placeholder="Enter subject" class="form-control" ></textarea>
+                                            <td><textarea type="text" name="fdescription[]" placeholder="Enter subject" class="form-control" ></textarea>
                                             </td>
                                             <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Add Subject</button></td>
                                         </tr>
@@ -171,9 +177,7 @@ $("#size").tagsinput('items');
     var i = 0;
     $("#dynamic-ar").click(function () {
         ++i;
-        $("#dynamicAddRemove").append('<tr><td><input type="text" name="ftitle[' + i +
-            ']" placeholder="Enter subject" class="form-control" /></td><td><textarea type="text" name="fdescription[' + i +
-            ']" placeholder="Enter subject" class="form-control" ></textarea></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
+        $("#dynamicAddRemove").append('<tr><td><input type="text" name="ftitle[]" placeholder="Enter subject" class="form-control" /></td><td><textarea type="text" name="fdescription[]" placeholder="Enter subject" class="form-control" ></textarea></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
             );
     });
     $(document).on('click', '.remove-input-field', function () {

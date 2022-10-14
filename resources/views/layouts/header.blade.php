@@ -241,90 +241,28 @@
 
                                 </li>
 
-                                <li class="nav-item drop_down_bag">
+                                <li class="nav-item drop_down_bag" id="cart-item">
 
                                     <div class="dropdown">
 
-                                        <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown"><i class="fas fa-shopping-bag"></i></button>
+                                        <button type="button"  class="btn  dropdown-toggle" data-toggle="dropdown"><i class="fas fa-shopping-bag"></i></button>
 
                                         <div class="dropdown-menu">
 
                                             
                                             <div class="container">
-                                              <div class="shopping-cart" style="width: 250px;">
+                                              <div class="shopping-cart" id="cartshow" style="width: 250px;">
                                                 <!--end shopping-cart-header -->
-
-                                                <ul class="shopping-cart-items">
-                                                    <p style="font-weight: bold;" class="pb-4">Shopping Cart</p>
-                                                  <li class="clearfix">
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <img src="{{ URL::to('/') }}/assets/images/Wall Dec1.png" alt="item1" class="img-fluid" />
-                                                        </div>
-                                                        <div class="col-8" style="position: relative;">
-                                                            <span class="item-name">WALL DECALS...</span>
-                                                            <span class="item-price">$849.99</span>
-                                                            <a href="#"><i class="fas fa-times" style="position: absolute; top: 0; right: 0; font-size: 12px; background: #4d6b7c; border-radius: 50%; padding: 5px ; color: #fff;" ></i></a>
-                                                        </div>
-                                                    </div>
-                                                  </li>
-                                                  <li class="clearfix">
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <img src="{{ URL::to('/') }}/assets/images/Wall Dec1.png" alt="item1" class="img-fluid" />
-                                                        </div>
-                                                        <div class="col-8" style="position: relative;">
-                                                            <span class="item-name">WALL DECALS...</span>
-                                                            <span class="item-price">$849.99</span>
-                                                            <a href="#"><i class="fas fa-times" style="position: absolute; top: 0; right: 0; font-size: 12px; background: #4d6b7c; border-radius: 50%; padding: 5px ; color: #fff;" ></i></a>
-                                                        </div>
-                                                    </div>
-                                                  </li>
-                                                  <li class="clearfix">
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <img src="{{ URL::to('/') }}/assets/images/Wall Dec1.png" alt="item1" class="img-fluid" />
-                                                        </div>
-                                                        <div class="col-8" style="position: relative;">
-                                                            <span class="item-name">WALL DECALS...</span>
-                                                            <span class="item-price">$849.99</span>
-                                                            <a href="#"><i class="fas fa-times" style="position: absolute; top: 0; right: 0; font-size: 12px; background: #4d6b7c; border-radius: 50%; padding: 5px ; color: #fff;" ></i></a>
-                                                        </div>
-                                                    </div>
-                                                  </li>
-                                                  <li class="clearfix">
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <img src="{{ URL::to('/') }}/assets/images/Wall Dec1.png" alt="item1" class="img-fluid" />
-                                                        </div>
-                                                        <div class="col-8" style="position: relative;">
-                                                            <span class="item-name">WALL DECALS...</span>
-                                                            <span class="item-price">$849.99</span>
-                                                            <a href="#"><i class="fas fa-times" style="position: absolute; top: 0; right: 0; font-size: 12px; background: #4d6b7c; border-radius: 50%; padding: 5px ; color: #fff;" ></i></a>
-                                                        </div>
-                                                    </div>
-                                                  </li>
-                                                  <li class="clearfix">
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <p style="text-align: center;font-weight: bold;" class="pb-2">Subtotal</p>
-                                                        </div>
-                                                        <div class="col-8 text-right">
-                                                            <span class="item-price">$8490.00</span>
-                                                        </div>
-                                                    </div>
-                                                  </li>
-                                                </ul>
                                               </div> <!--end shopping-cart -->
                                               <div class="row">
                                                 <div class="col-6">
                                                   <div class="cart-btn" style="text-align: center;margin: 0 auto;">
-                                                    <button style="cursor: pointer; font-size: 14px; margin: 0 auto !important; display: block; background: #4d6b7c;width: 105%; border: 0; border-radius: 4px ; padding: 11px 12px; outline: none; transition: 0.5s;" class="button send-btn mb-5" type="btn">Checkout</button>
+                                                    <a href="{{ route('checkout') }}" style="cursor: pointer; font-size: 14px!important; margin: 0 auto !important; display: block; background: #4d6b7c;width: 105%; border: 0; border-radius: 4px ; padding: 11px 12px; outline: none; transition: 0.5s;" class="button send-btn mb-5" type="btn">Checkout</a>
                                                   </div>
                                                 </div>
                                                 <div class="col-6">
                                                   <div class="cart-btn" style="text-align: center;margin: 0 auto;">
-                                                    <button style="cursor: pointer; font-size: 14px; margin: 0 auto !important; display: block; background: #4d6b7c;width: 105%; border: 0; border-radius: 4px ; padding: 11px 12px; outline: none; transition: 0.5s;" class="button send-btn mb-5" type="btn">View Cart</button>
+                                                    <a href="{{ route('cart.index') }}" style="cursor: pointer; font-size: 14px!important; margin: 0 auto !important; display: block; background: #4d6b7c;width: 105%; border: 0; border-radius: 4px ; padding: 11px 12px; outline: none; transition: 0.5s;" class="button send-btn mb-5" type="btn">View Cart</a>
                                                   </div>
                                                 </div>
                                               </div>

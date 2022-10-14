@@ -29,220 +29,25 @@
                 <div class="col-12">
                     <h2>WALLPAPERS</h2>
                 </div>
-
+           
+            @if($product)
+            @foreach($product as $key => $value)
                 <div class="col-md-3 col-6">
-                <a href="{{ URL::to('wallpaper-details') }}/">
-                    <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec1.png" alt="">
+                <a href="{{ URL::to('wallpaper-details') }}/{{ $value['id']}}">
+                    <img class="img-fluid" src="{{ URL::to('/') }}/{{ $value['image']}}" alt="">
 
-                    <p>Classic Pink Peony & Rose Wall Decals</p>
+                    <p>{{ $value['title']}}</p>
 
-                    <p>From : <strong>AUD 17.00</strong></p>
+                    <p>From : <strong>$ {{ $value['price']}}</strong></p>
                 </a>  
                 </div>
-
-                <div class="col-md-3 col-6">
-                
-                <a href="{{ URL::to('wallpaper-details') }}/">
-                    <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec2.png" alt="">
-
-                    <p>Wisteria & Rose Wall Decals</p>
-
-                    <p>From : <strong>AUD 17.00</strong></p>
-                </a> 
-                </div>
-
-                <div class="col-md-3 col-6">
-                
-                <a href="{{ URL::to('wallpaper-details') }}/">
-                    <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec3.png" alt="">
-
-                    <p>Lavender Pink Peony & Rose Wall Decals</p>
-
-                    <p>From : <strong>AUD 17.00</strong></p>
-                </a> 
-                </div>
-
-                <div class="col-md-3 col-6">
-                
-                <a href="{{ URL::to('wallpaper-details') }}/">
-                    <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec4.png" alt="">
-
-                    <p>Peony & Rose Wall Decals </p>
-
-                    <p>From : <strong>AUD 17.00</strong></p>
-                </a>
-                </div>
+            @endforeach
+            @endif
 
             </div>
 
         </div>
-
-        <div class="gal">
-
-            <div class="row ">
-
-                <div class="col-md-3 col-6">
-                
-                <a href="{{ URL::to('wallpaper-details') }}/">
-                    <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec1.png" alt="">
-
-                    <p>Classic Pink Peony & Rose Wall Decals</p>
-
-                    <p>From : <strong>AUD 17.00</strong></p>
-                </a>    
-
-                </div>
-
-                <div class="col-md-3 col-6">
-                
-                <a href="{{ URL::to('wallpaper-details') }}/"> 
-                    <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec2.png" alt="">
-
-                    <p>Wisteria & Rose Wall Decals</p>
-
-                    <p>From : <strong>AUD 17.00</strong></p>
-                </a>    
-
-                </div>
-
-                <div class="col-md-3 col-6">
-                
-                <a href="{{ URL::to('wallpaper-details') }}/">  
-                    <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec3.png" alt="">
-
-                    <p>Lavender Pink Peony & Rose Wall Decals</p>
-
-                    <p>From : <strong>AUD 17.00</strong></p>
-                </a>    
-
-                </div>
-
-                <div class="col-md-3 col-6">
-                
-                <a href="{{ URL::to('wallpaper-details') }}/">  
-                    <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec4.png" alt="">
-
-                    <p>Peony & Rose Wall Decals </p>
-
-                    <p>From : <strong>AUD 17.00</strong></p>
-                </a>    
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="gal">
-
-            <div class="row ">
-
-                <div class="col-md-3 col-6">
-                
-                <a href="{{ URL::to('wallpaper-details') }}/">
-                    <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec1.png" alt="">
-
-                    <p>Classic Pink Peony & Rose Wall Decals</p>
-
-                    <p>From : <strong>AUD 17.00</strong></p>
-                </a>    
-
-                </div>
-
-                <div class="col-md-3 col-6">
-                
-                <a href="{{ URL::to('wallpaper-details') }}/">
-                    <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec2.png" alt="">
-
-                    <p>Wisteria & Rose Wall Decals</p>
-
-                    <p>From : <strong>AUD 17.00</strong></p>
-                </a>    
-
-                </div>
-
-                <div class="col-md-3 col-6">
-                
-                <a href="{{ URL::to('wallpaper-details') }}/">
-                    <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec3.png" alt="">
-
-                    <p>Lavender Pink Peony & Rose Wall Decals</p>
-
-                    <p>From : <strong>AUD 17.00</strong></p>
-                </a>    
-
-                </div>
-
-                <div class="col-md-3 col-6">
-                
-                <a href="{{ URL::to('wallpaper-details') }}/">
-                    <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec4.png" alt="">
-
-                    <p>Peony & Rose Wall Decals </p>
-
-                    <p>From : <strong>AUD 17.00</strong></p>
-                </a>    
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="gal">
-
-            <div class="row ">
-
-                <div class="col-md-3 col-6">
-                
-                <a href="{{ URL::to('wallpaper-details') }}/">
-                    <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec1.png" alt="">
-
-                    <p>Classic Pink Peony & Rose Wall Decals</p>
-
-                    <p>From : <strong>AUD 17.00</strong></p>
-                </a>    
-
-                </div>
-
-                <div class="col-md-3 col-6">
-                
-                <a href="{{ URL::to('wallpaper-details') }}/">
-                    <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec2.png" alt="">
-
-                    <p>Wisteria & Rose Wall Decals</p>
-
-                    <p>From : <strong>AUD 17.00</strong></p>
-                </a>
-                </div>
-
-                <div class="col-md-3 col-6">
-                
-                <a href="{{ URL::to('wallpaper-details') }}/">
-                    <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec3.png" alt="">
-
-                    <p>Lavender Pink Peony & Rose Wall Decals</p>
-
-                    <p>From : <strong>AUD 17.00</strong></p>
-                </a>    
-
-                </div>
-
-                <div class="col-md-3 col-6">
-                
-                <a href="{{ URL::to('wallpaper-details') }}/">
-                    <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec4.png" alt="">
-
-                    <p>Peony & Rose Wall Decals </p>
-
-                    <p>From : <strong>AUD 17.00</strong></p>
-                </a>    
-
-                </div>
-
-            </div>
-
-        </div>
+     
 
 
 

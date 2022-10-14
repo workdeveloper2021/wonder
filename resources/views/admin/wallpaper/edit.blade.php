@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0 font-size-18">Create</h4>
+                    <h4 class="mb-sm-0 font-size-18">Update</h4>
 
 
                 </div>
@@ -42,7 +42,7 @@
                                 </ul>
                             </div>
                         @endif
-                           {!! Form::model($post, ['route' => ['walldecal.update', $post->id], 'method'=>'PATCH','enctype' => 'multipart/form-data']) !!}
+                           {!! Form::model($post, ['route' => ['wallpaper.update', $post->id], 'method'=>'PATCH','enctype' => 'multipart/form-data']) !!}
                         <div class="row">
                            <div class="col-md-6">
                                 <div class="mb-3">
@@ -75,6 +75,15 @@
                                     <div class="form-group">
                                         <strong>Image:</strong>
                                         {!! Form::file('image', array('placeholder' => 'image','id' => 'image','class' => 'form-control','accept' =>'image/*')) !!}
+                                    </div>
+                                </div>
+                            </div>  
+                             <div class="col-md-4">
+
+                                <div class="mb-3">
+                                    <div class="form-group">
+                                        <strong>Other Image:</strong>
+                                        {!! Form::file('other_img[]', array('placeholder' => 'image','id' => 'image','multiple' =>'multiple','accept' =>'image/*','class' => 'form-control')) !!}
                                     </div>
                                 </div>
                             </div>  
@@ -130,16 +139,16 @@
                                             <th>Action</th>
                                         </tr>
                                         <tr>
-                                            <td><input type="text" name="ftitle[0]" placeholder="Enter subject" class="form-control" />
+                                            <td><input type="text" name="ftitle[]" placeholder="Enter subject" class="form-control" />
                                             </td>
-                                            <td><textarea type="text" name="fdescription[0]" placeholder="Enter subject" class="form-control" ></textarea>
+                                            <td><textarea type="text" name="fdescription[]" placeholder="Enter subject" class="form-control" ></textarea>
                                             </td>
                                             <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Add Subject</button></td>
                                         </tr>
                                         <?php 
                                         if(!empty($post['ftitle'])){
-                                            $ftitle = explode(',', $post['ftitle']);
-                                            $fdescription = explode(',', $post['fdescription']);
+                                            $ftitle = explode('|', $post['ftitle']);
+                                            $fdescription = explode('|', $post['fdescription']);
                                             foreach ($ftitle as $key => $value) {
                                         ?>
                                         <tr>
@@ -193,9 +202,7 @@ $("#size").tagsinput('items');
     var i = 0;
     $("#dynamic-ar").click(function () {
         ++i;
-        $("#dynamicAddRemove").append('<tr><td><input type="text" name="ftitle[' + i +
-            ']" placeholder="Enter subject" class="form-control" /></td><td><textarea type="text" name="fdescription[' + i +
-            ']" placeholder="Enter subject" class="form-control" ></textarea></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
+        $("#dynamicAddRemove").append('<tr><td><input type="text" name="ftitle[]" placeholder="Enter subject" class="form-control" /></td><td><textarea type="text" name="fdescription[]" placeholder="Enter subject" class="form-control" ></textarea></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
             );
     });
     $(document).on('click', '.remove-input-field', function () {

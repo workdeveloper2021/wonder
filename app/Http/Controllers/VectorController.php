@@ -10,23 +10,14 @@ use FORM;
 use URL;
 class VectorController extends Controller
 {
-    
-    function __construct()
-    {
-         // $this->middleware('permission:category-list|categorys-create|categorys-edit|categorys-delete', ['only' => ['index', 'show']]);
-         // $this->middleware('permission:categorys-create', ['only' => ['create', 'store']]);
-         // $this->middleware('permission:categorys-edit', ['only' => ['edit', 'update']]);
-         // $this->middleware('permission:categorys-delete', ['only' => ['destroy']]);
-    }
-
-   
+     
     public function index(Request $request)
     {
         return view('admin.vector.index');
     }
 
     public function vectorList() {
-        $industry = Product::where('type','vector')->get();
+        $industry = Product::where('type','vector')->where('status',1)->get();
         return datatables()->of($industry)
             ->editColumn('created_at', '{{ date("d-m-Y", strtotime($created_at)) }}')
              ->editColumn('image', function($row) {
@@ -79,24 +70,20 @@ class VectorController extends Controller
         if(isset($input['size'])){
         $input['size'] = implode(',', $input['size']);
         }
+
+        if(isset($input['color'])){
+        $input['color'] = implode(',', $input['color']);
+        }
         if(isset($input['ftitle'])){
-        $input['ftitle'] = implode(',', $input['ftitle']);
+        $input['ftitle'] = implode('|', array_filter($input['ftitle']));
         }
         if(isset($input['fdescription'])){
-        $input['fdescription'] = implode(',', $input['fdescription']);
+        $input['fdescription'] = implode('|', array_filter($input['fdescription']));
         }
+
         $input['type'] ='vector';
         $result = Product::create($input);
-        if($request->file('other_img'))
-         {
-            foreach($request->file('other_img') as $file)
-            {   
-                $extension =  $file->getClientOriginalExtension();
-                $name = date('YmdHi'). '_'. rand('0000','9999').'.'.$extension;
-                $file->move(public_path('image/'), $name);  
-                Otherimage::create(array('type'=>'vector','product_id'=>$result->id,'image' => 'image/'.$name));
-            }
-         }
+       
         return redirect()->route('vector.index')
             ->with('success','Vector Walldecals created successfully.');
     }
@@ -142,37 +129,32 @@ class VectorController extends Controller
         if(isset($input['size'])){
         $input['size'] = implode(',', $input['size']);
         }
-        if(isset($input['ftitle'])){
-        $input['ftitle'] = implode(',', $input['ftitle']);
+        
+        if(isset($input['color'])){
+        $input['color'] = implode(',', $input['color']);
+        }
+         if(isset($input['ftitle'])){
+        $input['ftitle'] = implode('|', array_filter($input['ftitle']));
         }
         if(isset($input['fdescription'])){
-        $input['fdescription'] = implode(',', $input['fdescription']);
+        $input['fdescription'] = implode('|', array_filter($input['fdescription']));
         }
+
 
 
 
         $post = Product::find($id);
     
         $post->update($input);
-          if($request->file('other_img'))
-         {
-            foreach($request->file('other_img') as $file)
-            {   
-                $extension =  $file->getClientOriginalExtension();
-                $name = date('YmdHi'). '_'. rand('0000','9999').'.'.$extension;
-                $file->move(public_path('image/'), $name);  
-                Otherimage::create(array('type'=>'walldecal','product_id'=>$id,'image' => 'image/'.$name));
-            }
-         }
-    
-        return redirect()->route('walldecal.index')
+        
+        return redirect()->route('vector.index')
             ->with('success', 'Vector Walldecals updated successfully.');
     }
 
     public function destroy($id)
     {
         Product::where('id',$id)->delete();
-        return redirect()->route('walldecal.index')
+        return redirect()->route('vector.index')
             ->with('success', 'Vector Walldecals deleted successfully.');
     }
 }

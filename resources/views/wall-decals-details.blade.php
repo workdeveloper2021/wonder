@@ -1,7 +1,11 @@
 @extends('layouts.main')
  <!--Banner Start-->
 @section('content');
-
+<style type="text/css">
+.size-checked {
+        visibility: hidden;
+    }
+</style>
     <!--slip on all pages start-->
     <div id="slip" style="width: 100%;float: left;">
         <div class="container-fluid">
@@ -12,7 +16,7 @@
             </div>
         </div>
     </div>
-    
+     
     
     <!--slip on all pages end-->
 
@@ -34,36 +38,18 @@
                         <div class="item">            
                             <div class="clearfix">
                                 <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
-                                    <li data-thumb="{{ URL::to('assets/') }}/images/Wall Dec1.png" style="width: 10%">
-                                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec1.png" alt=""> 
+                                    <li data-thumb="{{ URL::to('/') }}/{{ $product->image}}" style="width: 10%">
+                                        <img class="img-fluid" src="{{ URL::to('/') }}/{{ $product->image}}" alt=""> 
                                     </li>
-                                    <li data-thumb="{{ URL::to('assets/') }}/images/Wall Dec2.png" style="width: 10%">
-                                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec2.png" alt=""> 
+                                    @if($images)
+                                    @foreach($images as $value)
+                           
+                                    <li data-thumb="{{URL::to('/')}}/{{$value['image']}}" style="width: 10%">
+                                        <img class="img-fluid" src="{{URL::to('/')}}/{{$value['image']}}" alt=""> 
                                     </li>
-                                    <li data-thumb="{{ URL::to('assets/') }}/images/Wall Dec3.png" style="width: 10%">
-                                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec3.png" alt=""> 
-                                    </li>
-                                    <li data-thumb="{{ URL::to('assets/') }}/images/Wall Dec4.png" style="width: 10%">
-                                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec4.png" alt=""> 
-                                    </li>
-                                    <li data-thumb="{{ URL::to('assets/') }}/images/Wall Dec1.png" style="width: 10%">
-                                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec1.png" alt=""> 
-                                    </li>
-                                    <li data-thumb="{{ URL::to('assets/') }}/images/Wall Dec2.png" style="width: 10%"> 
-                                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec2.png" alt=""> 
-                                    </li>
-                                    <li data-thumb="{{ URL::to('assets/') }}/images/Wall Dec3.png" style="width: 10%">
-                                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec3.png" alt=""> 
-                                    </li>
-                                    <li data-thumb="{{ URL::to('assets/') }}/images/Wall Dec4.png" style="width: 10%">
-                                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec4.png" alt=""> 
-                                    </li>
-                                    <li data-thumb="{{ URL::to('assets/') }}/images/Wall Dec1.png" style="width: 10%"> 
-                                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec1.png" alt=""> 
-                                    </li>
-                                    <li data-thumb="{{ URL::to('assets/') }}/images/Wall Dec2.png" style="width: 10%">
-                                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Wall Dec2.png" alt=""> 
-                                    </li>
+                                    @endforeach
+                                    @endif 
+                                    
                                 </ul>
                             </div>
                         </div>
@@ -76,15 +62,16 @@
 
                 <div class="col-md-6">
 
+ <form action="{{ route('cart.store') }}" method="post">
+                        @csrf
                     <div class="content">
-
-                        <h1>WISTERIA WALL DECALS - PERFECTLY PINK SET</h1>
+                        <h1>{{ $product->title }}</h1>
 
                         <div class="row" style="padding: 30px 0;">
 
                             <div class="col-6">
                                <h3 style="font-weight: normal; font-size: 1.2rem;">Price</h3>    
-                                <h3>$12.00 AUD</h3>
+                                <h3>${{ $product->price }}</h3>
 
 
 
@@ -131,30 +118,20 @@
                                 <!-- Nav tabs -->
 
                                 <ul class="nav nav-tabs" role="tablist">
-
+                                <?php
+                                 $size = explode(',',$product->size);
+                                 if(!empty($size)){
+                                    foreach($size as $key => $si){
+                                ?>       
                                     <li class="nav-item">
-
-                                        <a class="nav-link active" data-toggle="tab" href="#home">1/2 Pack jungle</a>
+                                       <input type="radio" name="size" class="btn-check size-checked" id="btn-check{{$key }}" autocomplete="off">
+                                       <label class="attrprod nav-link {{ ($key == 0)?'active':''}}" for="btn-check{{$key }}">{{ $si }}</label>
+                                       <!--  <a class="nav-link {{ ($key == 0)?'active':''}}" data-toggle="tab" href="#home">{{ $si }}</a> -->
 
                                     </li>
-
-                                    <li class="nav-item">
-
-                                        <a class="nav-link" data-toggle="tab" href="#menu1">3/4 Pack Jungle</a>
-
-                                    </li>
-
-                                    <li class="nav-item">
-
-                                        <a class="nav-link" data-toggle="tab" href="#menu2">Full Pack Jungle</a>
-
-                                    </li>
-
-                                    <li class="nav-item">
-
-                                        <a class="nav-link" data-toggle="tab" href="#menu3">Jungle Leaf Add On Pack</a>
-
-                                    </li>
+                                
+                                <?php } } ?>
+                                    
 
                                 </ul>
 
@@ -215,7 +192,7 @@
 
                                     <i class="fa fa-minus decreaseQty"></i>
 
-                                    <input style="padding: 7.5px 5px;" type="text" class="qtyValue" value="1" />
+                                    <input style="padding: 7.5px 5px;" type="text" name="qty" class="qtyValue" value="1" />
 
                                     <i class="fa fa-plus increaseQty"></i>
 
@@ -225,22 +202,24 @@
 
                         </div>
 
-                        <div class="row buttons" style="padding-top: 3%;">
+                         <div class="row buttons">
 
                             <div class="col-6">
 
-                                <a href="#"> <button>ADD TO CART</button> </a>
+                               <input type="hidden" name="product_id" value="{{$product->id}}">
+                                <button name="submit" value="cart" type="submit">ADD TO CART</button>
+
 
                             </div>
 
                             <div class="col-6">
 
-                                <a href="#"> <button>BUY IT NOW</button> </a>
+                                <button name="submit" value="checkout" type="submit">BUY IT NOW</button> 
 
                             </div>
 
                         </div>
-
+</form>
                     </div>
 
                 </div>
@@ -269,7 +248,7 @@
 
                 <div class="col-12">
 
-                    <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Layer 55.png" alt="">
+                    <img class="img-fluid" src="{{ URL::to('/') }}/{{ $product->banner}}" alt="">
 
                 </div>
 
@@ -292,16 +271,26 @@
                 <div class="col-12">
 
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <?php
+                    $ftitle = explode('|',$product->ftitle);
+                    $fdescription = explode('|',$product->fdescription);
+                     if(!empty($ftitle)){
+                        foreach($ftitle as $key => $ft){
 
+                    ?>
+                    <?php   if($key == 0){ ?>
                         <div class="panel panel-default">
-
+                              
+                                   
+                                
+                                
                             <div class="panel-heading " role="tab" id="headingOne">
 
-                                <h4 class="panel-title active">
+                                <h4 class="panel-title {{ ($key == 0)?'active':''}}">
 
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="font-family: 'Mulish', sans-serif;color: #4e6b7d;">
 
-                                        PLEASE ALLOW 10 BUSINESS DAYS TO SHIP
+                                       {{$ftitle[$key] }}
 
                                     </a>
 
@@ -313,28 +302,14 @@
 
                             <div id="collapseOne" class="panel-collapse collapse in show" role="tabpanel" aria-labelledby="headingOne">
 
-                                <div class="panel-body" style="font-family: 'Palanquin', sans-serif;">Transform even the darkest space into a bright and cheerful garden room with these oversized peony and rose decals. A graceful design, the blooms are taken from watercolour paintings of pale pink and creamy white peonies
-
-                                    and roses. With a bit of contrast from the leaves that frame each of the blooms, these easy-to-use decals are sure to delight. Available in full or half sets of five or ten flowers they will give the space a hand-painted,
-
-                                    mural-like look with a great deal of elegance and charm. If you cannot have a garden, this decal set is the next best thing.
-
-                                    <br>
-
-                                    <br> The decals can be purchased in sets. Full and half set, see detailed image. Full set includes 10 watercolour flowers approx. 55cm long and 9 leaves each 30cm long Half set includes 5 watercolour flowers approx.
-
-                                    55cm long and 7 leaves each 30cm long
-
-
-
-
+                                <div class="panel-body" style="font-family: 'Palanquin', sans-serif;">{{$fdescription[$key] }}
 
                                 </div>
 
                             </div>
 
                         </div>
-
+                    <?php }else{ ?>
                         <div class="panel panel-default">
 
                             <div class="panel-heading" role="tab" id="headingTwo">
@@ -343,7 +318,7 @@
 
                                     <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="font-family: 'Mulish', sans-serif;color: #4e6b7d;">
 
-                                        ARE THE DECALS EASY TO INSTALL?
+                                       {{$ftitle[$key] }}
 
                                     </a>
 
@@ -355,47 +330,16 @@
 
                             <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 
-                                <div class="panel-body" style="font-family: 'Palanquin', sans-serif;">Transform even the darkest space into a bright and cheerful garden room with these oversized peony and rose decals. A graceful design, the blooms are taken from watercolour paintings of pale pink and creamy white peonies
-
-                                    and roses. With a bit of contrast from the leaves that frame each of the blooms, these easy-to-use decals are sure to delight. Available in full or half sets of five or ten flowers they will give the space a hand-painted,
-
-                                    mural-like look with a great deal of elegance and charm. If you cannot have a garden, this decal set is the next best thing.
-
+                                <div class="panel-body" style="font-family: 'Palanquin', sans-serif;">{{$fdescription[$key] }}
                                 </div>
 
                             </div>
 
                         </div>
 
-                        <div class="panel panel-default">
-
-                            <div class="panel-heading" role="tab" id="headingThree">
-
-                                <h4 class="panel-title">
-
-                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="font-family: 'Mulish', sans-serif;color: #4e6b7d;">
-
-                                        SHIPPING
-
-                                    </a>
-
-                                </h4>
-
-                            </div>
-
-                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-
-                                <div class="panel-body" style="font-family: 'Palanquin', sans-serif; ">Transform even the darkest space into a bright and cheerful garden room with these oversized peony and rose decals. A graceful design, the blooms are taken from watercolour paintings of pale pink and creamy white peonies
-
-                                    and roses. With a bit of contrast from the leaves that frame each of the blooms, these easy-to-use decals are sure to delight. Available in full or half sets of five or ten flowers they will give the space a hand-painted,
-
-                                    mural-like look with a great deal of elegance and charm. If you cannot have a garden, this decal set is the next best thing.
-
-                                </div>
-
-                            </div>
-
-                        </div>
+                    <?php } ?>    
+                    <?php } } ?>
+                       
 
                     </div>
 
@@ -419,7 +363,7 @@
 
                 <div class="col-md-4" style="text-align: center;">
 
-                    <img class="img-fluid" style="width: 100%;height: 100%;" src="{{ URL::to('assets/') }}/images/Video_Clips.png" alt="">
+                    <img class="img-fluid" style="width: 100%;height: 100%;" src="{{ URL::to('/') }}/{{$product->video}}" alt="">
 
                 </div>
 
@@ -429,10 +373,7 @@
 
                         <div class="text_in-video" style="text-align: left;">
 
-                            <p style="font-size: 25px;">GENTLE ON THE WALLS</p>
-
-                            <p>The leaves that frame each of the blooms, delight. <br> Available in full or half sets of five</p>
-
+                           <?= $product->v_description ?>
                         </div>
 
                     </div>
@@ -589,6 +530,10 @@
  <script src="{{ URL::to('assets/lightbox/') }}/js/lightslider.js"></script> 
 <!--Footer End-->
  <script>
+    $(".attrprod").click(function (e) {
+        $(".attrprod").removeClass("active"); // remove all current selections
+        $(this).addClass("active"); // select this element
+    });
          $(document).ready(function() {
             $("#content-slider").lightSlider({
                 loop:true,

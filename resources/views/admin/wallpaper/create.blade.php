@@ -42,7 +42,7 @@
                                 </ul>
                             </div>
                         @endif
-                         {!! Form::open(array('route' => 'walldecal.store', 'method'=>'POST','enctype' => 'multipart/form-data')) !!}
+                         {!! Form::open(array('route' => 'wallpaper.store', 'method'=>'POST','enctype' => 'multipart/form-data')) !!}
                         <div class="row">
                            <div class="col-md-6">
                                 <div class="mb-3">
@@ -87,6 +87,15 @@
                                     </div>
                                 </div>
                             </div>  
+                           <div class="col-md-4">
+
+                                <div class="mb-3">
+                                    <div class="form-group">
+                                        <strong>Banner Image:</strong>
+                                        {!! Form::file('banner', array('placeholder' => 'banner image','id' => 'image','class' => 'form-control','accept' =>'image/*')) !!}
+                                    </div>
+                                </div>
+                            </div>  
 
                              <div class="col-md-4">
 
@@ -103,7 +112,7 @@
                                     <div class="form-group">
 
                                         <label  class="form-label"> Video Description</label>
-                                        {!! Form::textarea('v_description', null, array('placeholder' => 'Video Description','class' => 'form-control','id'=> 'description''value'=>'')) !!}
+                                        {!! Form::textarea('v_description', null, array('placeholder' => 'Video Description','class' => 'form-control','id'=> 'description','value'=>'')) !!}
                                     </div>
                                     
                                 </div>
