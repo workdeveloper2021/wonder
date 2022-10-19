@@ -39,10 +39,11 @@ class OrderController extends Controller
 
 
     public function show($id)
-    {
-         return view('admin.order.show');
+    {    
+        $order = Order::first();
+        return view('admin.order.show',compact('order'));
     }
- 
+  
 
      public function orderList() {
         $industry = Order::with('user')->get();
