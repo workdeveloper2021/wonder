@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 14, 2022 at 03:07 PM
+-- Generation Time: Oct 19, 2022 at 07:24 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -49,8 +49,7 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`id`, `user_id`, `product_id`, `product_type`, `size`, `qty`, `printing_text`, `font`, `color`, `unit_price`, `price`, `type`, `created_at`, `updated_at`) VALUES
-(30, '2', 1, 'walldecal', NULL, 1, NULL, NULL, NULL, 15.00, '15.00', 'cart', '2022-10-12 07:28:00', '2022-10-12 07:28:00'),
-(31, '2', 2, 'vector', NULL, 1, NULL, NULL, NULL, 12.00, '12.00', 'cart', '2022-10-12 07:28:12', '2022-10-12 07:28:30');
+(34, '2', 5, 'print', NULL, 1, 'dsdsds', 'Noto Sans Mono', '#000000', 75.00, '75.00', 'cart', '2022-10-18 05:38:30', '2022-10-18 05:38:30');
 
 -- --------------------------------------------------------
 
@@ -48400,7 +48399,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `email`, `s_fname`, `s_lname`, `s_cumpany`, `address`, `address2`, `address3`, `country`, `state`, `pincode`, `total`, `discount`, `coupon_id`, `transaction_id`, `status`, `payment_mode`, `payment_status`, `created_at`, `updated_at`) VALUES
-(1, 2, 'admin@gmail.com', 'dsds', 'dsdsds', 'dsds', 'dsds', 'dsds', 'dsds', '15', '295', 4520001, 12.00, NULL, NULL, NULL, '\'pending\'', NULL, NULL, '2022-09-30 06:57:04', '2022-09-30 06:57:04');
+(1, 2, 'admin@gmail.com', 'dsds', 'dsdsds', 'dsds', 'dsds', 'dsds', 'dsds', '15', '295', 4520001, 12.00, NULL, NULL, NULL, '\'pending\'', NULL, NULL, '2022-09-30 06:57:04', '2022-09-30 06:57:04'),
+(2, 2, 'RAHULBOSS14@PANCHRISHI.IN', 'ravi', 'sharma', 'sdfs', 'dsfs', 'dsdfs', 'sdfsd', '101', '21', 452001, 215.00, NULL, NULL, NULL, '\'pending\'', NULL, NULL, '2022-10-18 05:38:12', '2022-10-18 05:38:12');
 
 -- --------------------------------------------------------
 
@@ -48430,7 +48430,11 @@ CREATE TABLE `order_products` (
 --
 
 INSERT INTO `order_products` (`id`, `order_id`, `user_id`, `product_id`, `product_type`, `size`, `qty`, `printing_text`, `font`, `color`, `unit_price`, `price`, `created_at`, `updated_at`) VALUES
-(1, 1, '2', 3, NULL, '1/2 Pack jungle', 1, NULL, NULL, NULL, NULL, '12.00', '2022-09-30 06:57:04', '2022-09-30 06:57:04');
+(1, 1, '2', 3, NULL, '1/2 Pack jungle', 1, NULL, NULL, NULL, NULL, '12.00', '2022-09-30 06:57:04', '2022-09-30 06:57:04'),
+(2, 2, '2', 1, 'walldecal', NULL, 1, NULL, NULL, NULL, 15.00, '15.00', '2022-10-18 05:38:12', '2022-10-18 05:38:12'),
+(3, 2, '2', 2, 'vector', NULL, 1, NULL, NULL, NULL, 12.00, '12.00', '2022-10-18 05:38:12', '2022-10-18 05:38:12'),
+(4, 2, '2', 2, 'vector', '(L) diplodocus : 55 × 36 cm', 1, NULL, NULL, NULL, 12.00, '12.00', '2022-10-18 05:38:12', '2022-10-18 05:38:12'),
+(5, 2, '2', 4, 'babycard', 'Wrapped 4.25\" × 5.5\" card with envelope', 1, 'dsds dssdsddsdsds', 'Andada Pro', '#265047,#b138cc,#92592f,#58412c,#d1d974', 176.00, '176.00', '2022-10-18 05:38:12', '2022-10-18 05:38:12');
 
 -- --------------------------------------------------------
 
@@ -52767,7 +52771,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `cities`
@@ -52803,13 +52807,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `order_products`
 --
 ALTER TABLE `order_products`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `otherimages`
