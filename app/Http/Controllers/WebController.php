@@ -25,15 +25,16 @@ class WebController extends Controller
             
         } 
         $this->change_user();
-           return view('index');
+        $product = Product::where('type','!=','print')->where('status',1)->get();
+           return view('index',compact('product'));
     }
-         
+           
     public function change_user(){
         if(Auth::user()){
           if (Cookie::get('cart')) {
-               $user_id = Cookie::get('cart');
+               $cokkie_id = Cookie::get('cart');
                $auth_user = Auth::user()->id;
-               $cart =  Cart::where('user_id',$user_id)->update(array('user_id'=>$auth_user));
+               $cart =  Cart::where('user_id',$cokkie_id)->update(array('user_id'=>$auth_user));
             }
         }
     }

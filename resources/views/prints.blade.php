@@ -92,7 +92,6 @@
                             <div class="col-md-8">
 
                                 <select name="font" id="font_style" required>
-                                 <option value="">Select Font</option>
                                  @if(!empty($font)){
                                  @foreach($font as $key => $ft) 
                                     <option value="{{$ft->name}}">{{$ft->name}}</option>

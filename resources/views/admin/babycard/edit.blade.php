@@ -46,7 +46,7 @@
         <!-- end page title -->
 
         <div class="row">
-            <div class="col-xl-6">
+            <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
                        

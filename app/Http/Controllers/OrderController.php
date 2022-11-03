@@ -36,11 +36,11 @@ class OrderController extends Controller
     {
         return view('admin.order.index');
     }
-
+ 
 
     public function show($id)
     {    
-        $order = Order::first();
+        $order = Order::where('id',$id)->first();
         return view('admin.order.show',compact('order'));
     }
   
@@ -55,6 +55,10 @@ class OrderController extends Controller
 
             ->editColumn('useremail', function($row) {
                 return $row->user->email ;
+            })
+
+             ->editColumn('status', function($row) {
+                return ' <a class="statuschange" id="'.$row->id.'" href="javascript:void(0);">'.$row->status.'</a>';
             })
 
         
@@ -92,6 +96,13 @@ class OrderController extends Controller
          }
         
           return redirect('home')->with('success', 'your message,here');
+    }
+
+
+    public function getOrderbyid(Request $request)
+    {
+        $order = Order::where('id',$request->id)->first();
+        return json_encode($order);
     }
 
 }

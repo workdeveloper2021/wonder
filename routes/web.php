@@ -14,6 +14,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\GiftcardController;
 /*
 /*
 /*
@@ -50,7 +51,8 @@ Route::get('/wallpaper', [WebController::class, 'wallpaper'])->name('wallpaper')
 Route::get('/baby-cards', [WebController::class, 'babycards'])->name('baby-cards');
 Route::get('/prints', [WebController::class, 'prints'])->name('prints');
 
- Route::get('fetch-font-price/', [PrintController::class, 'getfontPrice'])->name('fetch-font-price');
+Route::get('fetch-font-price/', [PrintController::class, 'getfontPrice'])->name('fetch-font-price');
+Route::get('fetch-order/', [OrderController::class, 'getOrderbyid'])->name('fetch-order');
 Route::get('/about-us', [WebController::class, 'about'])->name('about');
 Route::get('/shipping', [WebController::class, 'shipping'])->name('shipping');
 Route::get('/faq', [WebController::class, 'faq'])->name('faq');
@@ -65,6 +67,9 @@ Route::get('/deletecart/{id}', [CartController::class, 'delete_cart']);
 Route::get('state-list/', [WebController::class, 'stateList'])->name('state-list');
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+
+
+Route::get('/applygiftcard', [CheckoutController::class, 'applygiftcard'])->name('applygiftcard');
 Route::group(['prefix' => '/admin','middleware' => 'auth'],function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     
@@ -88,12 +93,16 @@ Route::group(['prefix' => '/admin','middleware' => 'auth'],function () {
     Route::get('babycard-List/', [BabycardController::class, 'babycardList'])->name('babycard-list');
 
     Route::post('/orderplace', [OrderController::class, 'orderplace'])->name('orderplace');
-     Route::get('order/', [OrderController::class, 'order'])->name('order');
-   Route::get('order-List/', [OrderController::class, 'orderList'])->name('order-list');
-   Route::get('order-show/{id}', [OrderController::class, 'show'])->name('order-show');
+    Route::get('order/', [OrderController::class, 'order'])->name('order');
+    Route::get('order-List/', [OrderController::class, 'orderList'])->name('order-list');
+    Route::get('order-show/{id}', [OrderController::class, 'show'])->name('order-show');
    
     Route::resource('user', UserController::class);
    
     Route::get('user-List/', [UserController::class, 'userList'])->name('user-list');
+    
+
+    Route::resource('giftcard', GiftcardController::class);
+    Route::get('giftcard-List/', [GiftcardController::class, 'giftcardList'])->name('giftcard-list');
 
 });

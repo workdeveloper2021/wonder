@@ -28,7 +28,7 @@
         <!-- end page title -->
 
         <div class="row">
-            <div class="col-xl-6">
+            <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
                        <div class="container-fluid">
@@ -48,7 +48,7 @@
                                         <div>
                                           <span class="me-3">{{ date('d-m-Y',strtotime($order->created_at)) }}</span>
                                           <span class="me-3">Order No. 0000{{ $order->id }}</span>
-                                          <!-- <span class="me-3">Visa -1234</span> -->
+                                          <span class="me-3">Order Status: {{ $order->status }}</span>
                                           <!-- <span class="badge rounded-pill bg-info">SHIPPING</span> -->
                                         </div>
                                         <div class="d-flex">
@@ -68,49 +68,66 @@
                                         <tbody>
                                         @php
                                         
-                                        $pro = DB::table('products')->where('id',$order_id)->first();
+                                        $pro = DB::table('order_products')->where('order_id',$order->id)->get();
                                         @endphp
-                                        @if($order->order_products)
-                                        @foreach ($order->order_products as $key => $value)
+                                        @if($pro)
+                                        @foreach ($pro as $key => $value)
 
                                         @php
-                                         print_r($order->order_products); die;
-                                        $pro = DB::table('products')->where('id',$value['product_id'])->first();
+                                        $pro = DB::table('products')->where('id',$value->product_id)->first();
                                         @endphp
                                           <tr>
                                             <td>
                                               <div class="d-flex mb-2">
                                                 <div class="flex-shrink-0">
-                                                  <img src="https://via.placeholder.com/280x280/87CEFA/000000" alt="" width="35" class="img-fluid">
+                                                  <img src="{{ URL::to('/') }}/{{ $pro->image}}" alt="" width="35" class="img-fluid">
                                                 </div>
                                                 <div class="flex-lg-grow-1 ms-3">
-                                                  <h6 class="small mb-0"><a href="#" class="text-reset">{{$pro['title'] }}</a></h6>
-                                                  <span class="small">Color: Black</span>
+                                                  <h6 class="small mb-0"><a href="#" class="text-reset">{{$pro->title }}</a></h6>
+                                                  @if($value->color != '')
+                                                  <span class="small">Color: {{ $value->color}}</span>
+                                                  @endif
+                                                   @if($value->size != '')
+                                                  <span class="small">Size: {{ $value->size}}</span>
+                                                   @endif
+                                                   @if($value->printing_text != '')
+                                                  <span class="small">Test: {{ $value->printing_text}}</span>
+                                                   @endif
+                                                   @if($value->font != '')
+                                                  <span class="small">Font: {{ $value->font}}</span>
+                                                   @endif
                                                 </div>
                                               </div>
                                             </td>
                                             <td>1</td>
-                                            <td class="text-end">$79.99</td>
+                                            <td class="text-end">${{ $value->price}}</td>
                                           </tr>
                                           @endforeach
                                           @endif
                                         </tbody>
                                         <tfoot>
                                           <tr>
-                                            <td colspan="2">Subtotal</td>
-                                            <td class="text-end">$159,98</td>
+                                            <td></td>
+                                            <td>Subtotal</td>
+                                            <td class="text-end">${{ number_format($order->total,2) }}</td>
                                           </tr>
-                                          <tr>
-                                            <td colspan="2">Shipping</td>
+                                         <!--  <tr>
+
+                                            <td></td>
+                                            <td>Shipping</td>
                                             <td class="text-end">$20.00</td>
-                                          </tr>
-                                          <tr>
-                                            <td colspan="2">Discount (Code: NEWYEAR)</td>
+                                          </tr> -->
+                                          <!-- <tr>
+
+                                            <td></td>
+                                            <td>Discount (Code: NEWYEAR)</td>
                                             <td class="text-danger text-end">-$10.00</td>
-                                          </tr>
+                                          </tr> -->
                                           <tr class="fw-bold">
-                                            <td colspan="2">TOTAL</td>
-                                            <td class="text-end">$169,98</td>
+
+                                            <td></td>
+                                            <td>TOTAL</td>
+                                            <td class="text-end">${{ number_format($order->total,2) }}</td>
                                           </tr>
                                         </tfoot>
                                       </table>
@@ -121,18 +138,17 @@
                                     <div class="card-body">
                                       <div class="row">
                                         <div class="col-lg-6">
-                                          <h3 class="h6">Payment Method</h3>
-                                          <p>Visa -1234 <br>
-                                          Total: $169,98 <span class="badge bg-success rounded-pill">PAID</span></p>
+                                         <h3 class="h6">Billing address</h3>
+                                          <address>
+                                            <strong>{{ $order->s_fname}} {{ $order->s_lname}}</strong><br>
+                                            <strong>Company Name {{ $order->s_cumpany}}</strong><br>
+                                            {{ $order->address}}, {{ $order->address2}}, {{ $order->address3}}<br>
+                                            {{ $order->country}}, {{ $order->state}}, {{ $order->pincode}}<br>
+                                            <!-- <abbr title="Phone">P:</abbr> (123) 456-7890 -->
+                                          </address>
                                         </div>
                                         <div class="col-lg-6">
-                                          <h3 class="h6">Billing address</h3>
-                                          <address>
-                                            <strong>John Doe</strong><br>
-                                            1355 Market St, Suite 900<br>
-                                            San Francisco, CA 94103<br>
-                                            <abbr title="Phone">P:</abbr> (123) 456-7890
-                                          </address>
+                                          
                                         </div>
                                       </div>
                                     </div>

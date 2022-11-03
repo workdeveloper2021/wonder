@@ -37,7 +37,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0 font-size-18">Create</h4>
+                    <h4 class="mb-sm-0 font-size-18">Update</h4>
 
 
                 </div>
@@ -60,9 +60,9 @@
                                 </ul>
                             </div>
                         @endif
-                           {!! Form::model($post, ['route' => ['vector.update', $post->id], 'method'=>'PATCH','enctype' => 'multipart/form-data']) !!}
+                           {!! Form::model($post, ['route' => ['giftcard.update', $post->id], 'method'=>'PATCH','enctype' => 'multipart/form-data']) !!}
                         <div class="row">
-                           <div class="col-md-6">
+                          <div class="col-md-12">
                                 <div class="mb-3">
                                     <div class="form-group m-0">
                                         <label  class="form-label">Title</label>
@@ -71,124 +71,60 @@
                                 </div>
                             </div>   
 
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="mb-3">
                                     <div class="form-group m-0">
 
-                                        <label  class="form-label">Price</label>
-                                        {!! Form::text('price', null, array('placeholder' => 'Price','class' => 'form-control','required' =>'required')) !!}
+                                        <label  class="form-label">Gift Card Type</label>
+                                        {!! Form::select('type', array('Fixed'=>'Fixed','Percent' => 'Percent'),null, array('class' => 'form-control')) !!}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12 m-0">
+
+                            <div class="col-md-3">
                                 <div class="mb-3">
-                                     <label  class="form-label">Size</label>
-                                     {!! Form::text('size[]', null, array('placeholder' => 'for more add press Tab','id'=>'size','class' => 'form-control','required' =>'required','data-role'=>"tagsinput")) !!}
+                                    <div class="form-group m-0">
+
+                                        <label  class="form-label">Amount/Percent</label>
+                                        {!! Form::number('amount', null, array('placeholder' => 'Amount and Percent','class' => 'form-control','required' =>'required')) !!}
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 m-0">
+                             <div class="col-md-3">
                                 <div class="mb-3">
-                                     <label  class="form-label">Color</label>
-                                     {!! Form::text('color[]', null, array('placeholder' => 'for more add press Tab','id'=>'color','class' => 'form-control','required' =>'required','data-role'=>"tagsinput")) !!}
+                                    <div class="form-group m-0">
+
+                                        <label  class="form-label">Start Date</label>
+                                        {!! Form::date('start_date', null, array('placeholder' => 'Start Date','class' => 'form-control','required' =>'required')) !!}
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 m-0">
-                                <button type="button" class="btn btn-sm btn-success" id="fetch_color">Fetch Colors</button>
-                                <p id="color_list"></p>
-                                 <div class="img">
-                                        <div class="svg-container">
-                                           <img class="svg" src="{{ URL::to('/') }}/{{ $post->image}}" alt="Microsoft" width="350" height="350">
-                                        </div>
-                                </div>
-                             </div>
-
-                            <div class="col-md-4">
-
+                             <div class="col-md-3">
                                 <div class="mb-3">
-                                    <div class="form-group">
-                                        <strong>Image:</strong>
+                                    <div class="form-group m-0">
+
+                                        <label  class="form-label">End Date</label>
+                                        {!! Form::date('end_date', null, array('placeholder' => 'End Date','class' => 'form-control','required' =>'required')) !!}
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="col-md-3">
+                                <div class="mb-3">
+                                    <div class="form-group m-0">
+
+                                        <label  class="form-label">Gift Code</label>
+                                        {!! Form::text('giftcode', null, array('placeholder' => 'Gift Code','class' => 'form-control','required' =>'required')) !!}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 m-0">
+                                <div class="mb-3">
+                                    <div class="form-group">  
+                                     <label  class="form-label">Image</label>
                                         {!! Form::file('image', array('placeholder' => 'image','id' => 'image','class' => 'form-control','accept' =>'image/*')) !!}
                                     </div>
                                 </div>
-                            </div>  
-                          
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <div class="form-group">
-                                        <strong>Banner Image:</strong>
-                                        {!! Form::file('banner', array('placeholder' => 'banner image','id' => 'image','class' => 'form-control','accept' =>'image/*')) !!}
-                                    </div>
-                                </div>
-                            </div>    
-
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <div class="form-group">
-                                        <strong>Video:</strong>
-                                        {!! Form::file('video', array('placeholder' => 'image','id' => 'image','class' => 'form-control','accept' =>'image/*')) !!}
-                                    </div>
-                                </div>
-                            </div>    
-                            @if($images)
-                            @foreach($images as $value)
-                            
-                            <div class="col-md-2">
-                            
-                            <img src="{{URL::to('/')}}/{{$value['image']}}" style="width: 50%; height: 50%;">
-                            <a href="{{URL::to('/')}}/delete-image/{{$value['id']}}">Delete</a>
-                            </div> 
-                            @endforeach
-                            @endif   
-                            <div class="col-md-12 m-0">
-                                <div class="mb-3">
-                                    <div class="form-group">
-
-                                        <label  class="form-label"> Video Description</label>
-                                        {!! Form::textarea('v_description', null, array('placeholder' => 'Video Description','class' => 'form-control','id'=> 'description','required' =>'required','value'=>'')) !!}
-                                    </div>
-                                    
-                                </div>
-                            </div>    
-
-                            <div class="col-md-12 m-0">
-                                <div class="mb-3">
-                                    <div class="form-group">
-
-                                        <label  class="form-label"> Features </label>
-                                       
-                                        <table class="table table-bordered" id="dynamicAddRemove">
-                                        <tr>
-                                            <th>Title</th>
-                                            <th>Description</th>
-                                            <th>Action</th>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="text" name="ftitle[]" placeholder="Enter subject" class="form-control" />
-                                            </td>
-                                            <td><textarea type="text" name="fdescription[]" placeholder="Enter subject" class="form-control" ></textarea>
-                                            </td>
-                                            <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Add Subject</button></td>
-                                        </tr>
-                                        <?php 
-                                        if(!empty($post['ftitle'])){
-                                            $ftitle = explode('|', $post['ftitle']);
-                                            $fdescription = explode('|', $post['fdescription']);
-                                            foreach ($ftitle as $key => $value) {
-                                        ?>
-                                        <tr>
-                                            <td><input type="text" name="ftitle[]" placeholder="Enter subject" class="form-control" value="{{ $ftitle[$key] }}" />
-                                            </td>
-                                            <td><textarea type="text" name="fdescription[]" placeholder="Enter subject" class="form-control" >{{ $fdescription[$key] }}</textarea>
-                                            </td>
-                                            <td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td>
-                                        </tr>
-                                        <?php } } ?>
-                                    </table>
-                                    </div>
-                                </div>
-                            </div>      
-                            
-                            
+                            </div>
                             <div class="col-md-3 m-0">
                                 <div class="mb-3">
                                     <div class="form-group">
@@ -197,9 +133,9 @@
                                         {!! Form::select('status', array(1=>'Active',0 => 'Disable'),null, array('class' => 'form-control')) !!}
                                     </div>
                                 </div>
-                            </div>   
-                             
+                            </div>      
                         </div>
+                             
                         <br>
                         <button type="submit" class="btn btn-primary">Submit</button>
                      {!! Form::close() !!}

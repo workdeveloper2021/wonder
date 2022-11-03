@@ -42,9 +42,9 @@
                                 </ul>
                             </div>
                         @endif
-                         {!! Form::open(array('route' => 'vector.store', 'method'=>'POST','enctype' => 'multipart/form-data')) !!}
+                         {!! Form::open(array('route' => 'giftcard.store', 'method'=>'POST','enctype' => 'multipart/form-data')) !!}
                         <div class="row">
-                           <div class="col-md-6">
+                           <div class="col-md-12">
                                 <div class="mb-3">
                                     <div class="form-group m-0">
                                         <label  class="form-label">Title</label>
@@ -53,92 +53,60 @@
                                 </div>
                             </div>   
 
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="mb-3">
                                     <div class="form-group m-0">
 
-                                        <label  class="form-label">Price</label>
-                                        {!! Form::text('price', null, array('placeholder' => 'Price','class' => 'form-control','required' =>'required')) !!}
+                                        <label  class="form-label">Gift Card Type</label>
+                                        {!! Form::select('type', array('Fixed'=>'Fixed','Percent' => 'Percent'),null, array('class' => 'form-control')) !!}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12 m-0">
-                                <div class="mb-3">
-                                     <label  class="form-label">Size</label>
-                                     {!! Form::text('size[]', null, array('placeholder' => 'for more add press Tab','id'=>'size','class' => 'form-control','required' =>'required','data-role'=>"tagsinput")) !!}
-                                </div>
-                            </div>
-                           
- <div class="col-md-12 m-0">
-                                <div class="mb-3">
-                                     <label  class="form-label">Color</label>
-                                     {!! Form::text('color[]', null, array('placeholder' => 'for more add press Tab','id'=>'color','class' => 'form-control','required' =>'required','data-role'=>"tagsinput")) !!}
-                                </div>
-                            </div>
-                            <div class="col-md-4">
 
+                            <div class="col-md-3">
                                 <div class="mb-3">
-                                    <div class="form-group">
-                                        <strong>Image:</strong>
+                                    <div class="form-group m-0">
+
+                                        <label  class="form-label">Amount/Percent</label>
+                                        {!! Form::number('amount', null, array('placeholder' => 'Amount and Percent','class' => 'form-control','required' =>'required')) !!}
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="col-md-3">
+                                <div class="mb-3">
+                                    <div class="form-group m-0">
+
+                                        <label  class="form-label">Start Date</label>
+                                        {!! Form::date('start_date', null, array('placeholder' => 'Start Date','class' => 'form-control','required' =>'required')) !!}
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="col-md-3">
+                                <div class="mb-3">
+                                    <div class="form-group m-0">
+
+                                        <label  class="form-label">End Date</label>
+                                        {!! Form::date('end_date', null, array('placeholder' => 'End Date','class' => 'form-control','required' =>'required')) !!}
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="col-md-3">
+                                <div class="mb-3">
+                                    <div class="form-group m-0">
+
+                                        <label  class="form-label">Gift Code</label>
+                                        {!! Form::text('giftcode', null, array('placeholder' => 'Gift Code','class' => 'form-control','required' =>'required')) !!}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 m-0">
+                                <div class="mb-3">
+                                    <div class="form-group">  
+                                     <label  class="form-label">Image</label>
                                         {!! Form::file('image', array('placeholder' => 'image','id' => 'image','class' => 'form-control','accept' =>'image/*','required' =>'required')) !!}
                                     </div>
                                 </div>
-                            </div>  
-                            <div class="col-md-4">
-
-                                <div class="mb-3">
-                                    <div class="form-group">
-                                        <strong>Banner Image:</strong>
-                                        {!! Form::file('banner', array('placeholder' => 'banner image','id' => 'image','class' => 'form-control','accept' =>'image/*')) !!}
-                                    </div>
-                                </div>
-                            </div>  
-
-                             <div class="col-md-4">
-
-                                <div class="mb-3">
-                                    <div class="form-group">
-                                        <strong>Video:</strong>
-                                        {!! Form::file('video', array('placeholder' => 'image','id' => 'image','class' => 'form-control','accept' =>'image/*','required' =>'required')) !!}
-                                    </div>
-                                </div>
-                            </div>    
-                               
-                            <div class="col-md-12 m-0">
-                                <div class="mb-3">
-                                    <div class="form-group">
-
-                                        <label  class="form-label"> Video Description</label>
-                                        {!! Form::textarea('v_description', null, array('placeholder' => 'Video Description','class' => 'form-control','id'=> 'description','value'=>'')) !!}
-                                    </div>
-                                    
-                                </div>
-                            </div>    
-
-                            <div class="col-md-12 m-0">
-                                <div class="mb-3">
-                                    <div class="form-group">
-
-                                        <label  class="form-label"> Features </label>
-                                       
-                                        <table class="table table-bordered" id="dynamicAddRemove">
-                                        <tr>
-                                            <th>Title</th>
-                                            <th>Description</th>
-                                            <th>Action</th>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="text" name="ftitle[]" placeholder="Enter subject" class="form-control" />
-                                            </td>
-                                            <td><textarea type="text" name="fdescription[]" placeholder="Enter subject" class="form-control" ></textarea>
-                                            </td>
-                                            <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Add Subject</button></td>
-                                        </tr>
-                                    </table>
-                                    </div>
-                                </div>
-                            </div>      
-                            
+                            </div>
                             <div class="col-md-3 m-0">
                                 <div class="mb-3">
                                     <div class="form-group">
@@ -147,7 +115,7 @@
                                         {!! Form::select('status', array(1=>'Active',0 => 'Disable'),null, array('class' => 'form-control')) !!}
                                     </div>
                                 </div>
-                            </div>   
+                            </div>      
                         </div>
                         <br>
                         <button type="submit" class="btn btn-primary">Submit</button>

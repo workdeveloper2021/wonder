@@ -7,7 +7,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                    <h4 class="mb-sm-0 font-size-18">Orders</h4>
+                                    <h4 class="mb-sm-0 font-size-18">Gift Card</h4>
 
 
                                 </div>
@@ -20,25 +20,27 @@
                                 <div class="card">
                                     <div class="card-body">
         
-                                        <h4 class="card-title">Orders</h4>
+                                        <h4 class="card-title">Gift Card</h4>
                                         <p class="card-title-desc"> @if (\Session::has('success'))
                                             <div class="alert alert-success">
                                                 <p>{{ \Session::get('success') }}</p>
                                             </div>
                                         @endif
-                                      <!--   <span class="float-right">
-                                            <a class="btn btn-primary" href="{{ route('print.create') }}">Create</a>
-                                        </span> -->
+                                        <span class="float-right">
+                                            <a class="btn btn-primary" href="{{ route('giftcard.create') }}">Create</a>
+                                        </span>
                                         </p>
         
                                         <table id="exportexample1" class="table table-bordered dt-responsive  nowrap w-100">
                                             <thead>
                                             <tr>
-                                                <th>Order ID</th>
-                                                <th>User Name</th>
-                                                <th>User Email</th>
-                                                <th>Total Amount</th>
-                                                <th>Order Date</th>
+                                                <th>Gift Code</th>
+                                                <th>Title</th>
+                                                <th>Gift Type</th>
+                                                <th>Amount</th>
+                                                <th>Start Date</th>
+                                                <th>End Date</th>
+                                                <th>Image</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
@@ -57,43 +59,7 @@
                     </div> <!-- container-fluid -->
                 </div>
                 <!-- End Page-content -->
-<!-- Modal -->
 
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="subscribeModalLabel" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header border-bottom-0">
-
-                    <h3>Order Status Change</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="/action_page.php">
-                        <div class="row">
-                          <div class="form-group">
-                            <div class="col-12">
-                                
-                            <label for="email">Order Status</label>
-                            </div>
-                            <div class="col-12">
-                                
-                            <select class="form-control-lg">
-                                <option value="">select status</option>
-                                <option value="pending">pending</option>
-                                <option value="complete">complete</option>
-                            </select>
-                             </div>
-                          </div>
-                           
-                        </div><br>
-
-                     
-                      <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
 @endsection
 
@@ -136,15 +102,17 @@
             responsive: true,
             serverSide: true,
             ajax: {
-                "url": "{{ route('order-list') }}",
+                "url": "{{ route('giftcard-list') }}",
                 "type": "get",
             },
             columns: [
-                {data: 'id', name: 'id'},
-                {data: 'username', name: 'username'},
-                {data: 'useremail', name: 'useremail'},
-                {data: 'total', name: 'total'},
-                {data: 'created_at', name: 'created_at'},
+                {data: 'giftcode', name: 'giftcode'},
+                {data: 'title', name: 'title'},
+                {data: 'type', name: 'type'},
+                {data: 'amount', name: 'amount'},
+                {data: 'start_date', name: 'start_date'},
+                {data: 'end_date', name: 'end_date'},
+                {data: 'image', name: 'image'},
                 {data: 'status', name: 'status'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],
@@ -152,19 +120,7 @@
             }
         });
     });
-    
-    $(document).on('click','.statuschange',function(){
-        var id = $(this).attr('id');
-        $.ajax({
-            url:'',
-            type:'get',
-            data:{id:id},
-            success:function(res){
-               
-            }
-        })
-        $('#myModal').modal('show');
-    })
+
 
 </script>
 @endsection

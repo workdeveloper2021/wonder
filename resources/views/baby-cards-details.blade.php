@@ -129,7 +129,6 @@
 
                                 <h3 style="font-weight: normal; font-size: 1.2rem;padding:20px 0 0;">Chouse Your Font Type</h3> 
                                 <select name="font" id="font_style" required>
-                                 <option value="">Select Font</option>
                                  @if(!empty($font)){
                                  @foreach($font as $key => $ft) 
                                     <option value="{{$ft->name}}">{{$ft->name}}</option>

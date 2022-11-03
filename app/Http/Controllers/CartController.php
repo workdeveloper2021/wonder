@@ -70,16 +70,14 @@ class CartController extends Controller
     {
 
         $input = $request->except(['_token']);
-        if(Auth::user()){
-           $user_id = Auth::user()->id;
-        }else{
-           if (Cookie::get('cart') == false) {           
+        if (Cookie::get('cart') == false) {           
            $time=60*24*14;
            $value = time().rand('00','99'); 
            Cookie::queue('cart', $value, $time); 
-           }
+        }
            $user_id= Cookie::get('cart');
-            
+        if(Auth::user()){
+           $user_id = Auth::user()->id;
         } 
         $submit = $input['submit'];
         unset( $input['submit']);

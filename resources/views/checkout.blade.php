@@ -48,8 +48,8 @@
                     <h6><span>OR</span></h6> -->
 
                     <!-- Start Contact Information Section -->
-    <form method="post" action="{{ route('orderplace') }}">
-        @csrf 
+                <form method="post" action="{{ route('orderplace') }}">
+                    @csrf 
                     <div class="contact-information">
                         <div class="row">
                             <div class="col-md-6">
@@ -61,7 +61,7 @@
                         </div>
                       
                             <div class="form-group">
-                                <input type="email" name="email" class="form-control form-control-lg" placeholder="Email" required>
+                                <input type="email" name="email" class="form-control form-control-lg" value="<?php if(Auth::user()){ echo Auth::user()->email; } ?>" placeholder="Email" required>
                             </div>
                             <input type="checkbox" name="" id=""> Keep me up to date on news and offers
 
@@ -76,6 +76,13 @@
                                 <div class="col-md-6">
                                     <div class="from-group mb-2">
                                         <input type="text" name="s_lname" class="form-control form-control-lg" placeholder="Last name" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="from-group mb-2">
+                                        <input type="tel" name="s_contact" class="form-control form-control-lg" placeholder="Contact No." required  onkeypress='validate(event)' >
                                     </div>
                                 </div>
                             </div>
@@ -162,7 +169,11 @@
                      ?>     
                         <div class="row">
                             <div class="col-2">
-                                <img src="{{ URL::to('/') }}/{{ $product['products']['image']}}" width="100%" alt="" style="width:45px;">
+                                <?php if($product['product_type'] =='print'){ ?>
+                                <img src="{{ URL::to('/') }}/image/printtext.jpg" alt="item1" class="img-fluid" />
+                                <?php }else{ ?>
+                                <img src="{{ URL::to('/') }}/{{ $product['products']['image']}}" alt="item1" class="img-fluid" />
+                                <?php } ?>
                             </div>
                             <div class="col-6">
                                 <h5 style="margin-bottom: 0;font-size: 14px;">{{ substr($product['products']['title'], 0,20) }}...</h5>
@@ -179,13 +190,15 @@
 
                     
                             <div class="form-row align-items-center">
+                              
                                 <div class="col-md-10">
-                                    <input type="text" class=" mt-2 form-control form-control-lg" placeholder="Gift card or discount code"></div>
+                                    <input type="text" class=" mt-2 form-control form-control-lg" name="giftcode" id="giftcode" placeholder="Gift card or discount code"></div>
                                 <div class="col-md-2">
                                     <div class="input-group mt-2">
-                                        <button type="submit" class="btn btn-light btn-lg">Apply</button>
+                                        <button type="button" id="giftcodeapp" class="btn btn-light btn-lg">Apply</button>
                                     </div>
                                 </div>
+                                </form>
                             </div>
 
                         <hr style="margin: 30px 0;">
@@ -231,8 +244,6 @@
 
                 <!-- End Second main col-md-6 -->
 
-
-                        </form>
             </div>
 
         </div>
@@ -272,7 +283,39 @@ $(document).on('change','#country',function(e){
                     console.log(error);
                 }
             });
-    })    
+    })   
+
+    function validate(evt) {
+      var theEvent = evt || window.event;
+
+      // Handle paste
+      if (theEvent.type === 'paste') {
+          key = event.clipboardData.getData('text/plain');
+      } else {
+      // Handle key press
+          var key = theEvent.keyCode || theEvent.which;
+          key = String.fromCharCode(key);
+      }
+      var regex = /[0-9]|\./;
+      if( !regex.test(key) ) {
+        theEvent.returnValue = false;
+        if(theEvent.preventDefault) theEvent.preventDefault();
+      }
+    }
+
+    $(document).on('click','#giftcodeapp',function(){
+        var code = $('#giftcode').val();
+        var amt = "{{$carttotal}}";
+        $.ajax({
+            url:"{{route('applygiftcard')}}",
+            type:'get',
+            data:{code:code,amt:amt},
+            success:function(res){
+                alert(res);
+            }
+        })
+    }) 
+
 </script>
 
 @endsection

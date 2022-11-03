@@ -60,6 +60,12 @@
                 <span key="t-chat">Order</span>
             </a>
         </li>
+        <li>
+            <a href="{{ URL::to('admin/giftcard') }}" class="waves-effect">
+                <i class="bx bx-detail"></i>
+                <span key="t-chat">Gift Card</span>
+            </a>
+        </li>
         
         
 

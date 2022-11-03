@@ -5,7 +5,7 @@
 
     <div class="container-fluid">
 
-        <div class="row">
+        <div class="row"> 
 
             <div class="col-12">
 
@@ -116,7 +116,7 @@
         <div class="container">
 
             <div class="row">
-
+            
                 <div class="div_col">
                 <a href="{{ URL::to('wall-decals') }}"> 
                     <div class="img">
@@ -272,12 +272,13 @@
             <div class="container">
 
                 <div class="row">
-
+            @if($product)
+            @foreach($product as $pro)
                     <div class="div_col">
-
+                    <a href="{{ URL::to('baby-cards-details') }}/{{ $pro['id']}}">
                         <div class="img">
 
-                            <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Layer 40.png" alt="">
+                            <img class="img-fluid" src="{{ URL::to('/') }}/{{ $pro['image']}}" alt="" style="    height: 190px; width: 100%">
 
                         <!-- <div class="shop_on_img">
 
@@ -291,87 +292,20 @@
 
                         <div class="txt_after_img">
 
-                            <p>Classic Pink Peony & Rose Wall Decals</p>
+                            <p>{{ $pro['title']}}</p>
 
-                            <p>From : <strong>AUD 17.00</strong></p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="div_col">
-
-                    <div class="img">
-
-                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Layer 25.png" alt="">
-
-                        <div class="txt_after_img">
-
-                            <p>Classic Pink Peony & Rose Wall Decals</p>
-
-                            <p>From : <strong>AUD 26.00</strong></p>
+                            <p>From : <strong>$ {{ $pro['price']}}</strong></p>
 
                         </div>
 
                     </div>
+                    </a>
 
                 </div>
 
-                <div class="div_col">
+            @endforeach
+            @endif
 
-                    <div class="img">
-
-                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Layer 26.png" alt="">
-
-                        <div class="txt_after_img">
-
-                            <p>Lavender Pink Peony & Rose Wall Decals</p>
-
-                            <p>From : <strong>AUD 15.00</strong></p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="div_col">
-
-                    <div class="img">
-
-                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Layer 27.png" alt="">
-
-                        <div class="txt_after_img">
-
-                            <p>Peony & Rose Wall Decals</p>
-
-                            <p>From : <strong>AUD 10</strong></p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="div_col">
-
-                    <div class="img">
-
-                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Layer 41.png" alt="">
-
-                        <div class="txt_after_img">
-
-                            <p>Butterfly Wall Decal Set</p>
-
-                            <p>From : <strong>AUD 10</strong></p>
-
-                        </div>
-
-                    </div>
-
-                </div>
 
             </div>
 
@@ -381,211 +315,6 @@
 
 
 
-    <div id="second_img_gal">
-
-        <div class="container">
-
-            <div class="row">
-
-                <div class="div_col">
-
-                    <div class="img">
-
-                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Images (1).png" alt="">
-
-                        <div class="txt_after_img">
-
-                            <p>Bear Vector</p>
-
-                            <p>From : <strong>AUD 17.00</strong></p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="div_col">
-
-                    <div class="img">
-
-                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Images (2).png" alt="">
-
-                        <div class="txt_after_img">
-
-                            <p>Wahel Vector</p>
-
-                            <p>From : <strong>AUD 17.00</strong></p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="div_col">
-
-                    <div class="img">
-
-                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Images (3).png" alt="">
-
-                        <div class="txt_after_img">
-
-                            <p>Bird Moon Vector</p>
-
-                            <p>From : <strong>AUD 14.00</strong></p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="div_col">
-
-                    <div class="img">
-
-                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Images (4).png" alt="">
-
-                        <div class="txt_after_img">
-
-                            <p>Bear Moon Vector</p>
-
-                            <p>From : <strong>AUD 10.00</strong></p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="div_col">
-
-                    <div class="img">
-
-                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Images (5).png" alt="">
-
-                        <div class="txt_after_img">
-
-                            <p>Zoo Set Vector </p>
-
-                            <p>From : <strong>AUD 10.00</strong></p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-    <div id="second_img_gal">
-
-        <div class="container">
-
-            <div class="row">
-
-                <div class="div_col">
-
-                    <div class="img">
-
-                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Images (6).png" alt="">
-
-                        <div class="txt_after_img">
-
-                            <p>Tree Walpaper</p>
-
-                            <p>From : <strong>AUD 14.00</strong></p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="div_col">
-
-                    <div class="img">
-
-                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/images (7).png" alt="">
-
-                        <div class="txt_after_img">
-
-                            <p>Pan Walpaper</p>
-
-                            <p>From : <strong>AUD 11.00</strong></p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="div_col">
-
-                    <div class="img">
-
-                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Images (8).png" alt="">
-
-                        <div class="txt_after_img">
-
-                            <p>Polo Walpaper</p>
-
-                            <p>From : <strong>AUD 13.00</strong></p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="div_col">
-
-                    <div class="img">
-
-                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Images (9).png" alt="">
-
-                        <div class="txt_after_img">
-
-                            <p>Mountan Wallpaper</p>
-
-                            <p>From : <strong>AUD 17.00</strong></p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="div_col">
-
-                    <div class="img">
-
-                        <img class="img-fluid" src="{{ URL::to('assets/') }}/images/Images (10).png" alt="">
-
-                        <div class="txt_after_img">
-
-                            <p>Cool Walpaper</p>
-
-                            <p>From : <strong>AUD 17.00</strong></p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
 
 
 
