@@ -2,7 +2,7 @@
  <!--Banner Start-->
 @section('content');
 
-
+ 
     <!--slip on all pages start-->
 
     <div id="slip" style="width: 100%;float: left;">

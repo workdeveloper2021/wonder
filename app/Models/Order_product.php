@@ -20,8 +20,7 @@ class Order_product extends Model
 	
     ];
 
-    public function products()
-    {
-        return $this->belongsTo('App\Models\Product', 'product_id', 'id');
+    public function products(){
+        return $this->hasOne('App\Models\Order')->withPivot('quantity');
     }
 }

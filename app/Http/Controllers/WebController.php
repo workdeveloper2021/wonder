@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Cart;
 use App\Models\Font;
 use App\Models\User;
+use App\Models\Order;
 use App\Models\Otherimage;
 use Auth;
 use DB;
@@ -152,6 +153,11 @@ class WebController extends Controller
             $message = 'Success';
             return Response()->json($states);
         }
+    }
+
+    public function viewdd(){
+        $order = Order::with('user')->with('order_products')->where('id',3)->first();
+        return view('emails.myTestMail',compact('order'));
     }
 
     // public function citylist(Request $request) {

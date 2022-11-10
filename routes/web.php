@@ -37,6 +37,7 @@ Route::get('/dashboard', [WebController::class, 'dashboard'])->name('dashboard')
 
 });
 
+Route::get('/viewdd', [WebController::class, 'viewdd'])->name('viewdd');
 Route::get('/', [WebController::class, 'index'])->name('home');
 Route::get('/wall-decals', [WebController::class, 'decals'])->name('decals');
 Route::get('/vector-walldecals', [WebController::class, 'walldecals'])->name('walldecals');

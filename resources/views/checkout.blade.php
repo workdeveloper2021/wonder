@@ -111,12 +111,12 @@
                                             <select class="form-control-lg" name="country" id="country" style="width: 100%;" required>
                                             @if($countries)
                                             @foreach($countries as $value)    
-                                                <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                                <option <?php if ($value->id == 101): ?> selected
+                                                    
+                                                <?php endif ?> value="{{ $value->id }}">{{ $value->name }}</option>
                                             @endforeach
                                             @endif    
-                                                <option value="Australia">Australia</option>
-                                                <option value="China">China</option>
-                                                <option value="America">America</option>
+                                            
                                             </select>
                                         </div>
                                     </div>
@@ -258,6 +258,9 @@
 @section('script')
 
 <script type="text/javascript">
+$(document).ready(function(){
+    $('#country').trigger('change');
+})
 $(document).on('change','#country',function(e){
         e.preventDefault();
         var country_id = $(this).val();
