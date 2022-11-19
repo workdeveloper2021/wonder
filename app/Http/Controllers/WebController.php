@@ -12,6 +12,8 @@ use App\Models\Otherimage;
 use Auth;
 use DB;
 use Cookie;
+use PDF;
+
 class WebController extends Controller
 {
    
@@ -121,7 +123,11 @@ class WebController extends Controller
 
     public function dashboard(){
        $user = User::where('id',Auth::user()->id)->first();
-        return view('dashboard',compact('user'));
+       $order = array();
+        if(Auth::user()){
+              $order = Order::where('user_id',Auth::user()->id)->orderBy('id','DESC')->paginate(10);
+        }
+        return view('dashboard',compact('user','order'));
     }
 
 
@@ -145,6 +151,14 @@ class WebController extends Controller
         return view('contact');
     }
 
+    public function inovice($id){
+        $order = Order::where('id',$id)->first();
+        $html = view('invoice',compact('order'));  
+        $pdf = PDF::loadHTML($html);
+
+        return $pdf->download('invoice.pdf'); 
+    }
+
     public function statelist(Request $request) {
 
         $input = $request->all();
@@ -155,8 +169,8 @@ class WebController extends Controller
         }
     }
 
-    public function viewdd(){
-        $order = Order::with('user')->with('order_products')->where('id',3)->first();
+    public function viewdd($id){
+        $order = Order::where('id',$id)->first();
         return view('emails.myTestMail',compact('order'));
     }
 

@@ -84,8 +84,6 @@ class OrderController extends Controller
          $input = $request->except(['_token']);
          $input['user_id'] = Auth::user()->id;
          $input['total'] = Cart::where(array('user_id'=>$input['user_id'],'type'=>'cart') )->sum('price');
-         $input['country'] =DB::table('countries')->where('id',$input['country'])->value('name');
-         $input['state'] = DB::table('states')->where('id',$input['state'])->value('name');
          $order = Order::create($input);
          $cart = Cart::where(array('user_id'=>$input['user_id'],'type'=>'cart'))->get()->toArray();
          if (!empty($cart)) {
@@ -96,9 +94,11 @@ class OrderController extends Controller
               Cart::where(array('user_id'=>$input['user_id'],'type'=>'cart') )->delete();
             }
          }
-        $order = Order::with('user')->with('order_products')->where('id',$order->id)->first();
+          
+          $order = Order::where('id',$id)->first();
        
-        \Mail::to($input['email'])->send(new \App\Mail\MyTestMail($order));
+          \Mail::to($input['email'])->send(new \App\Mail\MyTestMail($order));
+
           return redirect('home')->with('success', 'your message,here');
     }
 

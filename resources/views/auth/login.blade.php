@@ -2,7 +2,7 @@
  <!--Banner Start-->
 @section('content');
 
- 
+
     <!--slip on all pages start-->
 
     <div id="slip" style="width: 100%;float: left;">
@@ -65,7 +65,7 @@
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
-                                @endif
+                            @endif
                             <button type="submit">Login</button><br>
 
                             <label>Not registred yet?</label>

@@ -37,10 +37,11 @@ Route::get('/dashboard', [WebController::class, 'dashboard'])->name('dashboard')
 
 });
 
-Route::get('/viewdd', [WebController::class, 'viewdd'])->name('viewdd');
 Route::get('/', [WebController::class, 'index'])->name('home');
 Route::get('/wall-decals', [WebController::class, 'decals'])->name('decals');
 Route::get('/vector-walldecals', [WebController::class, 'walldecals'])->name('walldecals');
+Route::get('/inovice/{id}', [WebController::class, 'inovice'])->name('inovice');
+Route::get('/viewdd/{id}', [WebController::class, 'viewdd'])->name('viewdd');
 
 Route::get('/wall-decals-details/{id}', [WebController::class, 'decals_details'])->name('wall-decals-details');
 

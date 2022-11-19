@@ -364,7 +364,7 @@
                         "
                       >
                         
-                        <h1>Wonder Rarelyn Prints</h1>
+                        <h1>WONDER RAELYN PRINTS</h1>
                           
                         </div>
                        
@@ -1240,11 +1240,15 @@
               </div>
             </div>
            
-                @if($order->order_products)
-          <?php  $carttotal = 0; ?>
-          @foreach($order->order_products as $key => $pro)
-
-          <?php $carttotal += $pro->price; ?>
+            @php
+                                        
+            $pro = DB::table('order_products')->where('order_id',$order->id)->get();
+            @endphp
+            @if($pro)
+            @foreach ($pro as $key => $value)
+            @php
+            $pro = DB::table('products')->where('id',$value->product_id)->first();
+            @endphp
             <div style="background-color: transparent">
               <div
                 class="block-grid three-up no-stack"
@@ -1326,7 +1330,19 @@
                                 margin: 0;
                               "
                             >
-                              {{ DB::table('products')->where('id',$pro->product_id)->value('title')}}
+                            {{$pro->title }} 
+                            @if($value->color != '')
+                            <span class="small">Color: {{ $value->color}}</span>
+                            @endif
+                             @if($value->size != '')
+                            <span class="small">Size: {{ $value->size}}</span>
+                             @endif
+                             @if($value->printing_text != '')
+                            <span class="small">Test: {{ $value->printing_text}}</span>
+                             @endif
+                             @if($value->font != '')
+                            <span class="small">Font: {{ $value->font}}</span>
+                             @endif
                             </p>
                           </div>
                         </div>
@@ -1397,7 +1413,7 @@
                                 margin: 0;
                               "
                             >
-                              {{$pro->qty}}
+                              {{$value->qty}}
                             </p>
                           </div>
                         </div>
@@ -1468,7 +1484,7 @@
                                 margin: 0;
                               "
                             >
-                             ₹{{$pro->price}}
+                             ₹{{$value->price}}
                             </p>
                           </div>
                         </div>
@@ -1814,7 +1830,7 @@
                                 margin: 0;
                               "
                             >
-                              <span style="font-size: 16px">₹{{number_format($carttotal,2)}}</span>
+                              <span style="font-size: 16px">${{ number_format($order->total,2) }}</span>
                             </p>
                           </div>
                         </div>
@@ -2397,7 +2413,7 @@
                             >
                               <span style="font-size: 22px"
                                 ><strong
-                                  ><span style="">Total ₹{{number_format($carttotal,2)}}</span></strong
+                                  ><span style="">Total ${{ number_format($order->total,2) }}</span></strong
                                 ></span
                               >
                             </p>
@@ -2637,7 +2653,7 @@
                                 margin: 0;
                               "
                             >
-                              You can find more amazing products on our website.
+                              You can find more WONDER RAELYN PRINTS on our website.
                             </p>
                           </div>
                         </div>
@@ -2653,7 +2669,7 @@
                           "
                         >
                          <a
-                            href="{{url('/shop')}}"
+                            href="{{url('/')}}"
                             style="
                               -webkit-text-size-adjust: none;
                               text-decoration: none;

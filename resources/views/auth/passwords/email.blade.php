@@ -1,46 +1,14 @@
-@extends('layouts.main')
- <!--Banner Start-->
-@section('content');
+@extends('layouts.app')
 
- 
-    <!--slip on all pages start-->
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Reset Password') }}</div>
 
-    <div id="slip" style="width: 100%;float: left;">
-
-        <div class="container-fluid">
-
-            <div class="row">
-
-                <div class="col-12">
-
-                    <img style="width:100%;height: auto;" src="{{ URL::to('assets/') }}/images/Whatsappimage.jpeg" alt="">
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    
-
-    
-
-    <!--slip on all pages end-->
-
-        <!--Login Page Start-->
-
-        <div id="login">
-
-            <div class="container special_class">
-
-                <div class="row">
-
-                    <div class="col-12 head">
-
-                        <h2>{{ __('Reset Password') }}</h2>
-                          @if (session('status'))
+                <div class="card-body">
+                    @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
@@ -71,16 +39,9 @@
                             </div>
                         </div>
                     </form>
-
-                    </div>
-
                 </div>
-
             </div>
-
         </div>
-
-        <!--Login Page End-->
-
-
+    </div>
+</div>
 @endsection

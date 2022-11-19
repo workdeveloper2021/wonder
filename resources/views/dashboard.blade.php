@@ -157,7 +157,7 @@ padding:0 15px;
 <div class="tab">
     <button class="tablinks" onclick="openCity(event, 'London')"  id="defaultOpen" >Profile</button>
     <button class="tablinks" onclick="openCity(event, 'Paris')">Account details</button>
-    <button class="tablinks" onclick="openCity(event, 'Tokyo')" >Wishlist</button>
+    <button class="tablinks" onclick="openCity(event, 'Tokyo')" >Order</button>
     <button class="tablinks" onclick="openCity(event, 'Tokyo')"><a href="{{ route('logout') }}"
      onclick="event.preventDefault();
      document.getElementById('logout-form').submit();">Logout</span>
@@ -245,70 +245,47 @@ padding:0 15px;
 </div>
 
 <div id="Tokyo" class="tabcontent">
-    <h3> <i class="fas fa-shopping-bag"></i> My Wishlist</h3>
+    <h3> <i class="fas fa-shopping-bag"></i> My Orders</h3>
     <div class="row pb-2">
-        <div class="col-md-3">
-            <h5>Product</h5>
+        <div class="col-md-2">
+            <h5>Order No.</h5>
         </div>
-        <div class="col-md-3">
-            <h5>Price </h5>
+        <div class="col-md-2">
+            <h5>Total Amount </h5>
             
         </div>
-        <div class="col-md-3">
-            <h5>Stock Status</h5>
+        <div class="col-md-2">
+            <h5>Status</h5>
         </div>
-        <div class="col-md-3">
-            <h5>Actions</h5>
+        <div class="col-md-2">
+            <h5>Order Date</h5>
+        </div>
+        <div class="col-md-2">
+            <h5>Invoice</h5>
         </div>
     </div>
+    @if($order)
+    @foreach ($order as $key => $value) 
     <div class="row">
-        <div class="col-md-3">
-            <img src="{{URL::to('/')}}/assets/images/Wall Dec1.png" width="40%" alt="item1" class="img-fluid" />
+        <div class="col-md-2">
+            <h5>0000{{ $value->id}}</h5>
         </div>
-        <div class="col-md-3">
-            <h5>$12.00 AUD </h5>
+        <div class="col-md-2">
+            <h5>₹{{ $value->total}}</h5>
             
         </div>
-        <div class="col-md-3">
-            <p>In Stock</p>
+        <div class="col-md-2">
+            <h5>{{ $value->status}}</h5>
         </div>
-        <div class="col-md-3">
-            <a href="#" class="quick_view">Quick view</a>
-            <a href="#" class="add_to_cart">Add to cart</a>
+        <div class="col-md-2">
+            <h5>{{date('d-m-Y',strtotime($value->created_at))}}</h5>
         </div>
-    </div>
-    <div class="row py-2">
-        <div class="col-md-3">
-            <img src="{{URL::to('/')}}/assets/images/Wall Dec1.png" width="40%" alt="item1" class="img-fluid" />
-        </div>
-        <div class="col-md-3">
-            <h5>$12.00 AUD </h5>
-            
-        </div>
-        <div class="col-md-3">
-            <p>In Stock</p>
-        </div>
-        <div class="col-md-3">
-            <a href="#" class="quick_view">Quick view</a>
-            <a href="#" class="add_to_cart">Add to cart</a>
+        <div class="col-md-2">
+            <a onclick="location.replace('<?= url('/inovice').'/'.$value->id; ?>'),'_top'" href="{{url('/inovice')}}/{{$value->id}}"><img style="width: 20%;" src="{{url('/')}}/assets/images/pdf-icon.png"></a>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-3">
-            <img src="{{URL::to('/')}}/assets/images/Wall Dec1.png" width="40%" alt="item1" class="img-fluid" />
-        </div>
-        <div class="col-md-3">
-            <h5>$12.00 AUD </h5>
-            
-        </div>
-        <div class="col-md-3">
-            <p>In Stock</p>
-        </div>
-        <div class="col-md-3">
-            <a href="#" class="quick_view">Quick view</a>
-            <a href="#" class="add_to_cart">Add to cart</a>
-        </div>
-    </div>
+    @endforeach 
+    @endif 
 </div>
 <!-- vertical tabs end-->
 

@@ -52,25 +52,19 @@
                                     </span>
                                 @enderror
                        
-                        <label>Mobile Number*</label><br>
-                        <input id="contact" type="contact" class="form-control @error('contact') is-invalid @enderror" name="contact" value="{{ old('contact') }}" required autocomplete="contact" minlength="10" maxlength="10"  onkeypress="return onlyNumberKey(event)">
+                       <!--  <label>Mobile Number*</label><br>
 
-                        @error('contact')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                       
+                        <input type="tel" placeholder="Mobile Number" minlength="10" maxlength="10"  onkeypress="return onlyNumberKey(event)" name="contact" id="contact"><br> -->
 
                         <label>Email Address*</label><br>
 
                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                         <label>Password*</label><br>
 
                         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
@@ -102,14 +96,5 @@
     <!--Sign up  Page Start-->
 
         
-<script>
-    function onlyNumberKey(evt) {
-          
-        // Only ASCII character in that range allowed
-        var ASCIICode = (evt.which) ? evt.which : evt.keyCode
-        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
-            return false;
-        return true;
-    }
-</script>
+
 @endsection
